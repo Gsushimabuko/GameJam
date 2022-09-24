@@ -6,9 +6,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+
     #region stats
     public float hapiness = 50f;
-    public float money = 10000f;
+    public float money;
     public float work = 50f;
     public float health = 100f;
     public float socials = 50f;
@@ -99,6 +100,10 @@ public class GameManager : MonoBehaviour
             triggerEvent(getEvent());
         }
     }
+    public float getMoney()
+    {
+        return this.money;
+    }
 
     private string getEvent()
     {
@@ -119,7 +124,7 @@ public class GameManager : MonoBehaviour
 
     private void triggerEvent(string eventObj)
     {
-        UIManager.Instance.openEventWindow(true);
+      /*   UIManager.Instance.openEventWindow(true); */
     }
 
     public void changeStats(int money, int work, int health, int socials, int hapiness)
@@ -138,4 +143,58 @@ public class GameManager : MonoBehaviour
         //Affect stats
         changeStats(100, 10, -10, 10, 10);
     }
+
+    public void rollCrypto(){
+        int index = Random.Range(0, 10);
+        if(index  <=3)
+        {
+            this.money = this.money +1000;
+        }
+        else if (index>=4)
+        {
+            this.money = this.money -1000;
+        }
+
+    }
+
+    public void deposit(int depositType)
+    {
+        if(depositType == 1)
+        {
+            StartCoroutine(depositEnum(1));
+        }
+        else if(depositType == 2)
+        {
+            StartCoroutine(depositEnum(2));
+        }
+        else if (depositType ==3 )
+        {
+            StartCoroutine(depositEnum(5));
+        }
+
+        
+        
+    }
+  IEnumerator depositEnum(int risk)
+    {
+        float interest = 1 + (risk * 0.1f);
+        float depositAmount = 2000;
+        this.money = this.money - depositAmount;
+        yield return new WaitForSeconds(10);
+        int roll = Random.Range(1, 10);
+        if(risk > roll)
+        {
+            Debug.Log("Roll lost");
+        }
+        else
+        {
+            this.money = this.money + (depositAmount * interest);
+        }
+
+
+
+
+    }
+
+
 }

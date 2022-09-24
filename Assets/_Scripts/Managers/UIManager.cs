@@ -5,19 +5,31 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+
+    public GameManager gameManager;
+
     public static UIManager Instance;
 
     [SerializeField]
     private GameObject[] _windows;
 
     [SerializeField]
+    private GameObject[] bankWindows;
+
+    [SerializeField]
     private Button[] _buttons;
+
+
+    [SerializeField]
+    private Button[] bankButtons;
+    
 
     [SerializeField]
     private Slider[] _sliders;
 
     [SerializeField]
     public TMPro.TextMeshProUGUI moneyStatText;
+    public Text moneyStat;
 
     [SerializeField]
     private Button[] _options;
@@ -40,6 +52,8 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
+
         _buttons[0].onClick.AddListener(() => openWindow(0));
         _buttons[1].onClick.AddListener(() => openWindow(1));
         _buttons[2].onClick.AddListener(() => openWindow(2));
@@ -50,21 +64,41 @@ public class UIManager : MonoBehaviour
         _options[1].onClick.AddListener(() => onClickOption(1));
         _options[2].onClick.AddListener(() => onClickOption(2));
 
+        //BANK WINDOWS
+        bankButtons[0].onClick.AddListener(() => openBankWindow(0));
+
         foreach (GameObject window in _windows)
         {
             window.SetActive(false);
         }
 
+        foreach (GameObject window in bankWindows)
+        {
+            window.SetActive(false);
+        }
+
+        
+
     }
 
 
-    public void openWindow(WindowID windowID)
+    /*  public void openWindow(WindowID windowID)
+     {
+         _windows[(int) windowID].SetActive(true);
+     } */
+
+    private void Update()
     {
-        _windows[(int) windowID].SetActive(true);
+        renderStat();
+    }
+    public void renderStat()
+    {
+        this.moneyStatText.text = gameManager.getMoney().ToString();
     }
 
     public void openWindow(int windowID)
     {
+        
         Debug.Log("Se abre la ventana " + windowID);
         _windows[windowID].transform.SetSiblingIndex(4);
         _windows[windowID].SetActive(true);
@@ -74,7 +108,23 @@ public class UIManager : MonoBehaviour
             PauseGame();
         }
     }
+    public void openBankWindow(int windowID)
+    {
+        Debug.Log("Se abre la ventana " + windowID);
+        bankWindows[windowID].SetActive(true);
 
+    }
+
+    public void closeBankWindow(int windowID)
+    {
+        Debug.Log("Se cierra ventana " + windowID);
+        bankWindows[windowID].SetActive(false);
+
+        if (windowID == 0)
+        {
+            ResumeGame();
+        }
+    }
     public void closeWindow(int windowID)
     {
         Debug.Log("Se cierra ventana " + windowID);
