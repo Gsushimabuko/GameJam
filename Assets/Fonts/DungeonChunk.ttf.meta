@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 3565ab61b688dee4d9e0ccba8f126e1f
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - DungeonChunk
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 03a2ade597138be4a9a6de495fa7d51e, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -7,11 +7,12 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     #region stats
-    public float hapiness;
-    public float money;
-    public float work;
-    public float socials;
-    public float events;
+    public float hapiness = 50f;
+    public float money = 10000f;
+    public float work = 50f;
+    public float health = 100f;
+    public float socials = 50f;
+    public float events = 0;
     #endregion
 
     public Stack<string> currentEvent = new Stack<string>();
@@ -118,12 +119,16 @@ public class GameManager : MonoBehaviour
 
     private void triggerEvent(string eventObj)
     {
-        UIManager.Instance.openWindow(4);
+        UIManager.Instance.openEventWindow(true);
     }
 
-    public void onOptionSelected()
+    public void onOptionSelected(int money, int work, int health, int socials, int hapiness)
     {
         //Affect stats
-        //Show stats changing in UI
+        this.money += money;
+        this.work += work;
+        this.health += health;
+        this.socials += socials;
+        this.hapiness += hapiness;
     }
 }
