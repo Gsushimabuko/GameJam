@@ -16,9 +16,9 @@ public class GameManager : MonoBehaviour
     #endregion
 
     public Stack<string> currentEvent = new Stack<string>();
-    //private EventClass[] _unlockedEvents;
-    //private EventClass[] _lockedEvents;
-    //private EventClass[] _usedEvents;
+    //private List<EventClass> _unlockedEvents = new List<string> { };
+    //private List<EventClass> _lockedEvents;
+    //private List<EventClass> _usedEvents;
 
     private List<string> _unlockedEvents = new List<string>{ "a", "b", "c", "d", "e", "f" };
     private List<string> _lockedEvents = new List<string> { "x", "y", "z" };
@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.openEventWindow(true);
     }
 
-    public void onOptionSelected(int money, int work, int health, int socials, int hapiness)
+    public void changeStats(int money, int work, int health, int socials, int hapiness)
     {
         //Affect stats
         this.money += money;
@@ -130,5 +130,12 @@ public class GameManager : MonoBehaviour
         this.health += health;
         this.socials += socials;
         this.hapiness += hapiness;
+    }
+
+    public void onOptionSelected(int index)
+    {
+
+        //Affect stats
+        changeStats(100, 10, -10, 10, 10);
     }
 }

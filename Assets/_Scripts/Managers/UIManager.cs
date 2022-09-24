@@ -118,7 +118,7 @@ public class UIManager : MonoBehaviour
     public void onClickOption(int index)
     {
         //Change stats
-        GameManager.Instance.onOptionSelected(10, 10, -10, 10, 10);
+        GameManager.Instance.onOptionSelected(index);
 
         //Close event Window
         closeEventWindow(true);
