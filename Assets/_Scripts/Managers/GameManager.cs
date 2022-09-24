@@ -4,8 +4,24 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private EventClass[] _unlockedEvents;
-    private EventClass[] _lockedEvents;
+    public static GameManager Instance;
+
+    #region stats
+    public float hapiness;
+    public float money;
+    public float work;
+    public float socials;
+    public float events;
+    #endregion
+
+    public Stack<string> currentEvent = new Stack<string>();
+    //private EventClass[] _unlockedEvents;
+    //private EventClass[] _lockedEvents;
+    //private EventClass[] _usedEvents;
+
+    private List<string> _unlockedEvents = new List<string>{ "a", "b", "c", "d", "e", "f" };
+    private List<string> _lockedEvents = new List<string> { "x", "y", "z" };
+    private List<string> _usedEvents = new List<string> { };
 
     private Coroutine _eventsCoroutine = null;
     private float waited = 0;
@@ -43,6 +59,18 @@ public class GameManager : MonoBehaviour
     //    Debug.Log("Rolleando " + timeCont);
     //    timeCont++;
     //}
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -63,10 +91,39 @@ public class GameManager : MonoBehaviour
         timeCont++;
         //Debug.Log("Intento " + timeCont + ": " + roll);
 
-        if(roll > 91.67)
+        if(roll > 90)
         {
             rolledEvents++;
-            Debug.Log("Eventos rolleados en" + timeCont + "intentos: " + rolledEvents);
+            Debug.Log("Eventos rolleados en " + timeCont + " intentos: " + rolledEvents);
+            triggerEvent(getEvent());
         }
+    }
+
+    private string getEvent()
+    {
+        int index = Random.Range(0, _unlockedEvents.Count-1);
+        var eventObj = _unlockedEvents[index];
+
+        _unlockedEvents.RemoveAt(index);
+        _usedEvents.Add(eventObj);
+
+        Debug.Log(string.Join(", ", _unlockedEvents));
+        Debug.Log(string.Join(", ", _usedEvents));
+        Debug.Log("Event: " + eventObj + " - Index: " + index);
+
+        currentEvent.Push(eventObj);
+
+        return eventObj;
+    }
+
+    private void triggerEvent(string eventObj)
+    {
+        UIManager.Instance.openWindow(4);
+    }
+
+    public void onOptionSelected()
+    {
+        //Affect stats
+        //Show stats changing in UI
     }
 }

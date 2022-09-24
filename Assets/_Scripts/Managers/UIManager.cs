@@ -55,11 +55,35 @@ public class UIManager : MonoBehaviour
         Debug.Log("Se abre la ventana " + windowID);
         _windows[windowID].transform.SetSiblingIndex(4);
         _windows[windowID].SetActive(true);
+
+        if(windowID==0)
+        {
+            PauseGame();
+        }
     }
 
     public void closeWindow(int windowID)
     {
         Debug.Log("Se cierra ventana " + windowID);
         _windows[windowID].SetActive(false);
+
+        if (windowID == 0)
+        {
+            ResumeGame();
+        }
+    }
+
+    public void openEvent()
+    {
+        //GameManager.Instance.currentEvent;
+    }
+
+    void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+    void ResumeGame()
+    {
+        Time.timeScale = 1;
     }
 }
