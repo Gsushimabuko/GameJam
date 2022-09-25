@@ -1610,6 +1610,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenFilterAnimator: {fileID: 968457547}
   moneyTextAnimator: {fileID: 1946752427}
+  CounterAnimator: {fileID: 366530488}
 --- !u!1 &308149556
 GameObject:
   m_ObjectHideFlags: 0
@@ -1660,6 +1661,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4a6d37f3e83843941ae3c07d60f8e8da, type: 3}
   - {fileID: 8300000, guid: 426c35d4c4b2a574f978fc59f8131f01, type: 3}
   - {fileID: 8300000, guid: 2fe8310ecd9e1d94aab95dded7f2494f, type: 3}
+  coinDrop: {fileID: 0}
+  successSound: {fileID: 0}
 --- !u!1 &319736858
 GameObject:
   m_ObjectHideFlags: 0
@@ -3198,7 +3201,35 @@ MonoBehaviour:
   _lockedEvents: []
   _usedEvents: []
   textJSON: {fileID: 4900000, guid: 758ac16df3150ca4c967cfa1c37f58a0, type: 3}
-  currentEvent: []
+  activeEvents: []
+  currentEvent:
+    ID: 
+    title: 
+    body: 
+    category: 
+    title1: 
+    body1: 
+    work1: 
+    health1: 
+    money1: 
+    social1: 
+    hapiness1: 
+    title2: 
+    body2: 
+    work2: 
+    health2: 
+    money2: 
+    social2: 
+    hapiness2: 
+    title3: 
+    body3: 
+    work3: 
+    health3: 
+    money3: 
+    social3: 
+    hapiness3: 
+    options: []
+    unlocks: 
 --- !u!4 &600294673
 Transform:
   m_ObjectHideFlags: 0
@@ -7490,6 +7521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeef9da44d2aaf04c9fdf6320d5e6bb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationScript: {fileID: 284504895}
   _options:
   - {fileID: 1619423464}
   - {fileID: 113055043}
