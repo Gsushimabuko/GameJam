@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
+    public  AnimationManagerScript animationScript;
 
     #region stats
     public float hapiness = 50f;
@@ -149,10 +149,12 @@ public class GameManager : MonoBehaviour
         if(index  <=3)
         {
             this.money = this.money +1000;
+            animationScript.blinkBlueCoroutine();
         }
         else if (index>=4)
         {
             this.money = this.money -1000;
+            animationScript.blinkRedCoroutine();
         }
 
     }
@@ -185,16 +187,14 @@ public class GameManager : MonoBehaviour
         if(risk > roll)
         {
             Debug.Log("Roll lost");
+            animationScript.blinkRedCoroutine();
         }
         else
         {
             this.money = this.money + (depositAmount * interest);
+            animationScript.blinkBlueCoroutine();
         }
 
-
-
-
     }
-
 
 }

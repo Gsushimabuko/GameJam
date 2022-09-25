@@ -1196,6 +1196,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 284504894}
+  - component: {fileID: 284504895}
   m_Layer: 0
   m_Name: AnimationManager
   m_TagString: Untagged
@@ -1218,6 +1219,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &284504895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284504893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83f48d306b55d8c43ade55c84cedc770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screenFilterAnimator: {fileID: 968457547}
 --- !u!1 &308149556
 GameObject:
   m_ObjectHideFlags: 0
@@ -4369,7 +4383,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ad721198c146e5545995bc6fe4bb670c, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -7325,6 +7339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c38ae4e13da146f4582d52148f7ada9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationScript: {fileID: 284504895}
   hapiness: 0
   money: 20000
   work: 0
