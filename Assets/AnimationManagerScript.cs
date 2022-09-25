@@ -11,6 +11,8 @@ public class AnimationManagerScript : MonoBehaviour
     [SerializeField]
     private Animator screenFilterAnimator;
 
+    public Animator moneyTextAnimator;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -27,16 +29,16 @@ public class AnimationManagerScript : MonoBehaviour
     }
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    } 
 
-    public  void blinkRedCoroutine() 
+    }
+
+    public void blinkRedCoroutine()
     {
         StartCoroutine(blinkRed());
     }
@@ -44,6 +46,33 @@ public class AnimationManagerScript : MonoBehaviour
     public void blinkBlueCoroutine()
     {
         StartCoroutine(blinkBlue());
+    }
+
+    public void moneyUpCoroutine()
+    {
+        StartCoroutine(moneyUp());
+    }
+
+    public void moneyDownCoroutine()
+    {
+        StartCoroutine(moneyDown());
+    }
+
+
+    IEnumerator moneyUp()
+    {
+        moneyTextAnimator.SetInteger("moneyState", 2);
+        yield return new WaitForSeconds(0.5f);
+        moneyTextAnimator.SetInteger("moneyState", 1);
+
+    }
+
+    IEnumerator moneyDown()
+    {
+        moneyTextAnimator.SetInteger("moneyState", 0);
+        yield return new WaitForSeconds(0.5f);
+        moneyTextAnimator.SetInteger("moneyState", 1);
+
     }
 
 

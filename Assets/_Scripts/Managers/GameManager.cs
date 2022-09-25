@@ -117,12 +117,14 @@ public class GameManager : MonoBehaviour
         if(index  <=3)
         {
             this.money = this.money +1000;
-            animationScript.blinkBlueCoroutine();
+          //animationScript.blinkBlueCoroutine();
+            animationScript.moneyUpCoroutine();
         }
         else if (index>=4)
         {
             this.money = this.money -1000;
-            animationScript.blinkRedCoroutine();
+            // animationScript.blinkRedCoroutine();
+            animationScript.moneyDownCoroutine();
         }
 
     }
@@ -155,12 +157,15 @@ public class GameManager : MonoBehaviour
         if(risk > roll)
         {
             Debug.Log("Roll lost");
-            animationScript.blinkRedCoroutine();
+            animationScript.moneyDownCoroutine();
+            //nimationScript.blinkRedCoroutine();
         }
         else
         {
             this.money = this.money + (depositAmount * interest);
-            animationScript.blinkBlueCoroutine();
+            animationScript.moneyUpCoroutine();
+            //nimationScript.blinkBlueCoroutine();
+
         }
 
     }

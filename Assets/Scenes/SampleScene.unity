@@ -1611,6 +1611,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   screenFilterAnimator: {fileID: 968457547}
+  moneyTextAnimator: {fileID: 1946752427}
 --- !u!1 &308149556
 GameObject:
   m_ObjectHideFlags: 0
@@ -9069,6 +9070,7 @@ GameObject:
   - component: {fileID: 1946752424}
   - component: {fileID: 1946752426}
   - component: {fileID: 1946752425}
+  - component: {fileID: 1946752427}
   m_Layer: 0
   m_Name: MoneyStat
   m_TagString: Untagged
@@ -9116,7 +9118,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: S/. 0
+  m_text: S/. 10000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 36fed7be85db8e34680931e747fd6ee8, type: 2}
   m_sharedMaterial: {fileID: 784161431154999861, guid: 36fed7be85db8e34680931e747fd6ee8, type: 2}
@@ -9193,6 +9195,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1946752423}
   m_CullTransparentMesh: 1
+--- !u!95 &1946752427
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946752423}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: aafd256ebcce51c4f89ffbdc8371eee0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1948775187
 GameObject:
   m_ObjectHideFlags: 0
