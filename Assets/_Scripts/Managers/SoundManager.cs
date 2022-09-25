@@ -4,15 +4,90 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static SoundManager Instance;
+
+    private AudioSource bgmSource;
+    private AudioSource sfxSource;
+
+    [SerializeField]
+    private AudioClip _bgm;
+
+    [SerializeField]
+    private AudioClip[] _minigameSounds;
+
+    void Awake()
     {
-        
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        bgmSource = gameObject.AddComponent<AudioSource>();
+        sfxSource = gameObject.AddComponent<AudioSource>();
+
+        bgmSource.loop = true;
+        bgmSource.clip = _bgm;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        bgmSource.volume = 0.1f;
+    }
+
+    private void PlayBGM()
+    {
+        bgmSource.Play();
+    }
+
+    public void PlayMinigameSound(int index)
+    {
+        sfxSource.PlayOneShot(_minigameSounds[index]);
+    }
+
+
+    public void SetMusicVolume(float volume)
+    {
+        bgmSource.volume = volume;
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        sfxSource.volume = volume;
+    }
+
+    public void PauseSFX()
+    {
+        sfxSource.Pause();
+    }
+
+    public void PauseMusic()
+    {
+        bgmSource.Pause();
+    }
+
+    public void StopMusic()
+    {
+        bgmSource.Stop();
+    }
+
+    public bool IsPlayingSFX()
+    {
+        return sfxSource.isPlaying;
+    }
+
+    public bool IsPlayingMusic()
+    {
+        return bgmSource.isPlaying;
+    }
+
+
+    public void UnpauseMusic()
+    {
+        bgmSource.UnPause();
     }
 }

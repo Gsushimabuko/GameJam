@@ -19,10 +19,11 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Button[] _buttons;
 
+    [SerializeField]
+    private GameObject _minigameWindow;
 
     [SerializeField]
     private Button[] bankButtons;
-    
 
     [SerializeField]
     private Slider[] _sliders;
@@ -33,6 +34,9 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private Button[] _options;
+
+    [SerializeField]
+    private Button startMinigameButton;
 
     void Awake()
     {
@@ -52,7 +56,10 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        startMinigameButton.onClick.AddListener(() =>
+        {
+            StartMinigame();
+        });
 
         _buttons[0].onClick.AddListener(() => openWindow(0));
         _buttons[1].onClick.AddListener(() => openWindow(1));
@@ -77,10 +84,21 @@ public class UIManager : MonoBehaviour
             window.SetActive(false);
         }
 
-        
+        //WORK WINDOWS / MINIGAME
+        _minigameWindow.SetActive(false);
 
     }
 
+    public void StartMinigame()
+    {
+        _minigameWindow.SetActive(true);
+        MinigameManager.Instance.OnGameStarted();
+    }
+
+    public void EndMinigame()
+    {
+        _minigameWindow.SetActive(false);
+    }
 
     /*  public void openWindow(WindowID windowID)
      {
