@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
       UIManager.Instance.openEventWindow(false);
     }
 
-    public void changeStats(int money, int work, int health, int socials, int hapiness)
+    public void changeStats(float money, float work, float health, float socials, float hapiness)
     {
         //Affect stats
         this.money += money;
@@ -93,10 +93,10 @@ public class GameManager : MonoBehaviour
         this.hapiness += hapiness;
     }
 
-    public void onOptionSelected(int index)
+    public void onOptionSelected(OptionClass option)
     {
         //Affect stats
-        changeStats(100, 10, -10, 10, 10);
+        changeStats(option.money, option.work, option.health, option.social, option.hapiness);
     }
 
     public void rollCrypto(){
