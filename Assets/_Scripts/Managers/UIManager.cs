@@ -38,6 +38,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Button startMinigameButton;
 
+    [SerializeField]
+    private GameObject eventPanel;
+
     void Awake()
     {
         if (Instance == null)
@@ -153,16 +156,32 @@ public class UIManager : MonoBehaviour
     {
         //GameManager.Instance.currentEvent;
         //Set values in UI
-
+        UpdateEventWindow();
         openWindow(4);
         
-        var button = _windows[4].transform.GetChild(0).GetComponent<Button>();
         
         if(noClose)
         {
+            var button = _windows[4].transform.GetChild(0).GetComponent<Button>();
             button.interactable = false;
             PauseGame();
         }
+    }
+
+    public void UpdateEventWindow()
+    {
+        eventPanel.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.currentEvent.title;
+        eventPanel.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.currentEvent.body;
+
+        _options[0].transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.currentEvent.title1;
+        _options[0].transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.currentEvent.body1;
+
+        _options[1].transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.currentEvent.title2;
+        _options[1].transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.currentEvent.body2;
+
+        _options[2].transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.currentEvent.title3;
+        _options[2].transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.currentEvent.body3;
+
     }
 
     public void closeEventWindow(bool noClose)

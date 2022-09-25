@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     public float events = 0;
     #endregion
 
-    public Stack<string> currentEvent = new Stack<string>();
     //private List<EventClass> _unlockedEvents = new List<string> { };
     //private List<EventClass> _lockedEvents;
     //private List<EventClass> _usedEvents;
@@ -26,7 +25,9 @@ public class GameManager : MonoBehaviour
     private List<string> _usedEvents = new List<string> { };
 
     private int timeCont = 0;
+    private float _timeWindow = 1f;
     private int rolledEvents = 0;
+    private float _rollProbability = 60;
 
     void Awake()
     {
@@ -44,8 +45,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //_eventsCoroutine = StartCoroutine("rollEvent");
-        //InvokeRepeating("rollEvent", 0, _timeWindow);
+        InvokeRepeating("rollEvent", 0, _timeWindow);
+
     }
 
     // Update is called once per frame
@@ -60,11 +61,15 @@ public class GameManager : MonoBehaviour
         timeCont++;
         //Debug.Log("Intento " + timeCont + ": " + roll);
 
-        if(roll > 90)
+        if(roll > _rollProbability)
         {
+            _rollProbability = 111;
             rolledEvents++;
             Debug.Log("Eventos rolleados en " + timeCont + " intentos: " + rolledEvents);
-            triggerEvent(getEvent());
+            
+            EventClass eventTriggered = DataManager.Instance.GetEvent();
+
+            triggerEvent(eventTriggered);
         }
     }
     public float getMoney()
@@ -72,26 +77,10 @@ public class GameManager : MonoBehaviour
         return this.money;
     }
 
-    private string getEvent()
+
+    private void triggerEvent(EventClass eventObj)
     {
-        int index = Random.Range(0, _unlockedEvents.Count-1);
-        var eventObj = _unlockedEvents[index];
-
-        _unlockedEvents.RemoveAt(index);
-        _usedEvents.Add(eventObj);
-
-        Debug.Log(string.Join(", ", _unlockedEvents));
-        Debug.Log(string.Join(", ", _usedEvents));
-        Debug.Log("Event: " + eventObj + " - Index: " + index);
-
-        currentEvent.Push(eventObj);
-
-        return eventObj;
-    }
-
-    private void triggerEvent(string eventObj)
-    {
-      /*   UIManager.Instance.openEventWindow(true); */
+      UIManager.Instance.openEventWindow(false);
     }
 
     public void changeStats(int money, int work, int health, int socials, int hapiness)

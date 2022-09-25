@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class EventClass
 {
     public string ID;
@@ -69,5 +70,10 @@ public class EventClass
         this.money3 = money3;
         this.social3 = social3;
         this.hapiness3 = hapiness3;
+    }
+
+    public void Print()
+    {
+        Debug.Log(ID + " - " + title);
     }
 }
