@@ -91,6 +91,8 @@ public class GameManager : MonoBehaviour
         this.health += health;
         this.socials += socials;
         this.hapiness += hapiness;
+
+        DataManager.Instance.UpdateSocialListEvents();
     }
 
     public void onOptionSelected(OptionClass option)

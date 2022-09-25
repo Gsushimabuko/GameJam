@@ -5,10 +5,12 @@ using UnityEngine;
 [System.Serializable]
 public class EventClass
 {
-    public string ID;
+    public int ID;
     public string title;
     public string body;
     public string category;
+    public float tsocial;
+    public float trsocial;
 
     #region Option 1
     public string title1;
