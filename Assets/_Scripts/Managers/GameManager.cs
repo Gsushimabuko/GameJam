@@ -25,42 +25,10 @@ public class GameManager : MonoBehaviour
     private List<string> _lockedEvents = new List<string> { "x", "y", "z" };
     private List<string> _usedEvents = new List<string> { };
 
-    private Coroutine _eventsCoroutine = null;
-    private float waited = 0;
     private int timeCont = 0;
     private float _timeWindow = 0.5f;
     private int rolledEvents = 0;
 
-    //IEnumerator rollEvent()
-    //{
-    //    timeCont++;
-
-    //    if (waited == 0)
-    //    {
-    //        yield return new WaitForSeconds(_timeWindow);
-    //        Debug.Log("Rolleando " + timeCont);
-    //    }
-
-    //    while (waited < _timeWindow)
-    //    {
-    //        waited += Time.deltaTime;
-    //        yield return null;
-    //    }
-
-    //    if (waited >= 5)
-    //    {
-    //        waited = 0;
-    //        _eventsCoroutine = StartCoroutine("rollEvent");
-    //    }
-    //}
-
-    //IEnumerator _rollEvent()
-    //{
-    //    yield return new WaitForSeconds(5f);
-
-    //    Debug.Log("Rolleando " + timeCont);
-    //    timeCont++;
-    //}
     void Awake()
     {
         if (Instance == null)
@@ -78,7 +46,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //_eventsCoroutine = StartCoroutine("rollEvent");
-        InvokeRepeating("rollEvent", 0, _timeWindow);
+        //InvokeRepeating("rollEvent", 0, _timeWindow);
     }
 
     // Update is called once per frame
