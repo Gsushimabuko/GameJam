@@ -95,7 +95,6 @@ public class GameManager : MonoBehaviour
 
     public void onOptionSelected(int index)
     {
-
         //Affect stats
         changeStats(100, 10, -10, 10, 10);
     }

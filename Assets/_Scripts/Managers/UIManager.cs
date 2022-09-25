@@ -128,7 +128,6 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("Se abre la ventana " + windowID);
         bankWindows[windowID].SetActive(true);
-
     }
 
     public void closeBankWindow(int windowID)
@@ -159,7 +158,6 @@ public class UIManager : MonoBehaviour
         UpdateEventWindow();
         openWindow(4);
         
-        
         if(noClose)
         {
             var button = _windows[4].transform.GetChild(0).GetComponent<Button>();
@@ -188,10 +186,10 @@ public class UIManager : MonoBehaviour
     {
         closeWindow(4);
 
-        var button = _windows[4].transform.GetChild(0).GetComponent<Button>();
 
         if (noClose)
         {
+            var button = _windows[4].transform.GetChild(0).GetComponent<Button>();
             button.interactable = true;
             ResumeGame();
         }

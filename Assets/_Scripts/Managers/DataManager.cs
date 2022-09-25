@@ -50,11 +50,15 @@ public class DataManager : MonoBehaviour
 
         _unlockedEvents.RemoveAt(index);
         _usedEvents.Add(eventObj);
-
         activeEvents.Add(eventObj);
+        
         eventObj.Print();
         return eventObj;
     }
 
-
+    public EventClass GetCurrentEvent(int index)
+    {
+        currentEvent = activeEvents[index];
+        return currentEvent;
+    }
 }
