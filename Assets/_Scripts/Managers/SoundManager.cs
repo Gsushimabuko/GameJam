@@ -9,16 +9,29 @@ public class SoundManager : MonoBehaviour
     private AudioSource bgmSource;
     private AudioSource sfxSource;
 
+    public AudioClip clickSound;
+    public AudioClip newEventSound;
+
     [SerializeField]
     private AudioClip _bgm;
 
     [SerializeField]
     private AudioClip[] _minigameSounds;
 
-    public AudioClip coinDrop;
-    public AudioClip successSound;
+    
+    public AudioClip minigameWin;
+    public AudioClip minigameSound;
 
-    void Awake()
+    public AudioClip moneyLoss;
+    public AudioClip moneyWin;
+
+
+    [SerializeField]
+    private AudioClip[] _hapinessTracks;
+
+
+
+        void Awake()
     {
         if (Instance == null)
         {
@@ -40,6 +53,11 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         bgmSource.volume = 0.1f;
+    }
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+            sfxSource.PlayOneShot(this.clickSound);
     }
 
     private void PlayBGM()
@@ -92,5 +110,19 @@ public class SoundManager : MonoBehaviour
     public void UnpauseBGM()
     {
         bgmSource.UnPause();
+    }
+
+    public void playClick()
+    {
+       sfxSource.PlayOneShot(clickSound);
+    }
+
+    public void playMoneyWin()
+    {
+        sfxSource.PlayOneShot(this.moneyWin);
+    }
+    public void playMoneyLoss()
+    {
+        sfxSource.PlayOneShot(this.moneyLoss);
     }
 }
