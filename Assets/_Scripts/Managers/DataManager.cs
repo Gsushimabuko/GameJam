@@ -41,7 +41,7 @@ public class DataManager : MonoBehaviour
         int index = Random.Range(0, _unlockedEvents.Count - 1);
         var eventObj = _unlockedEvents[index];
 
-        Debug.Log("Event: " + eventObj + " - Index: " + index);
+        Debug.Log("Index: " + eventObj.ID);
 
         if (eventObj == null)
         {

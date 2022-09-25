@@ -30,7 +30,6 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     public TMPro.TextMeshProUGUI moneyStatText;
-    public Text moneyStat;
 
     [SerializeField]
     private Button[] _options;
@@ -52,9 +51,6 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-
-        
     }
     // Start is called before the first frame update
     void Start()
@@ -168,18 +164,19 @@ public class UIManager : MonoBehaviour
 
     public void UpdateEventWindow()
     {
-        eventPanel.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.currentEvent.title;
-        eventPanel.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.currentEvent.body;
+        eventPanel.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(0).title;
+        eventPanel.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(0).body;
 
-        _options[0].transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.currentEvent.title1;
-        _options[0].transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.currentEvent.body1;
+        _options[0].transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(0).title1;
+        _options[0].transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(0).body1;
 
-        _options[1].transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.currentEvent.title2;
-        _options[1].transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.currentEvent.body2;
+        _options[1].transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(0).title2;
+        _options[1].transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(0).body2;
 
-        _options[2].transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.currentEvent.title3;
-        _options[2].transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.currentEvent.body3;
+        _options[2].transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(0).title3;
+        _options[2].transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(0).body3;
 
+        Debug.Log("Evento: " + DataManager.Instance.GetCurrentEvent(0).title);
     }
 
     public void closeEventWindow(bool noClose)
@@ -197,19 +194,70 @@ public class UIManager : MonoBehaviour
 
     public void onClickOption(int index)
     {
-        //Change stats
-        GameManager.Instance.onOptionSelected(index);
+        OptionClass option = GetOption(index);
+        Debug.Log("Se eligio " + option.ID);
 
-        //Close event Window
+        //Change stats
+        GameManager.Instance.onOptionSelected(option);
+
+        //Show result window
+
+        //Close event Window and result window
         closeEventWindow(true);
 
         //Animation
 
         //Update sliders and money counter
-        _sliders[0].value = GameManager.Instance.work;
-        _sliders[1].value = GameManager.Instance.health;
-        _sliders[2].value = GameManager.Instance.socials;
+        //_sliders[0].value = GameManager.Instance.work;
+        //_sliders[1].value = GameManager.Instance.health;
+        //_sliders[2].value = GameManager.Instance.socials;
+
         moneyStatText.text = GameManager.Instance.money.ToString();
+
+    }
+
+    public OptionClass GetOption(int index)
+    {
+        OptionClass option = new OptionClass();
+
+        if(index == 0)
+        {
+            option.ID = index;
+            option.title = DataManager.Instance.GetCurrentEvent(0).title1;
+            option.body = DataManager.Instance.GetCurrentEvent(0).body1;
+
+            option.hapiness = DataManager.Instance.GetCurrentEvent(0).hapiness1;
+            option.work = DataManager.Instance.GetCurrentEvent(0).work1;
+            option.health = DataManager.Instance.GetCurrentEvent(0).health1;
+            option.social = DataManager.Instance.GetCurrentEvent(0).social1;
+            option.money = DataManager.Instance.GetCurrentEvent(0).money1;
+        }
+        else if(index == 1)
+        {
+            option.ID = index;
+            option.title = DataManager.Instance.GetCurrentEvent(0).title2;
+            option.body = DataManager.Instance.GetCurrentEvent(0).body2;
+
+            option.hapiness = DataManager.Instance.GetCurrentEvent(0).hapiness2;
+            option.work = DataManager.Instance.GetCurrentEvent(0).work2;
+            option.health = DataManager.Instance.GetCurrentEvent(0).health2;
+            option.social = DataManager.Instance.GetCurrentEvent(0).social2;
+            option.money = DataManager.Instance.GetCurrentEvent(0).money2;
+        }
+        else if(index == 2)
+        {
+            option.ID = index;
+            option.title = DataManager.Instance.GetCurrentEvent(0).title3;
+            option.body = DataManager.Instance.GetCurrentEvent(0).body3;
+
+            option.hapiness = DataManager.Instance.GetCurrentEvent(0).hapiness3;
+            option.work = DataManager.Instance.GetCurrentEvent(0).work3;
+            option.health = DataManager.Instance.GetCurrentEvent(0).health3;
+            option.social = DataManager.Instance.GetCurrentEvent(0).social3;
+            option.money = DataManager.Instance.GetCurrentEvent(0).money3;
+        }
+
+        return option;
     }
 
     void PauseGame()
