@@ -146,6 +146,7 @@ public class MinigameManager : MonoBehaviour
             //WIN
             animationScript.setCounterState(3);
             Debug.Log("Subidon");
+            SoundManager.Instance.playMinigameWin();
             gameStarted = false;
             enableButtons(false);
             
@@ -154,7 +155,7 @@ public class MinigameManager : MonoBehaviour
         {
             //LOSE
             animationScript.setCounterState(4);
-            Debug.Log("Bajon");
+            SoundManager.Instance.playMiniGameLoss();
             gameStarted = false;
             enableButtons(false);
         }
@@ -195,6 +196,7 @@ public class MinigameManager : MonoBehaviour
         if (gameStarted)
         {
             //LOSE
+            SoundManager.Instance.playMiniGameLoss();
             animationScript.setCounterState(4);
             Debug.Log("LOSE");
             EndGame();

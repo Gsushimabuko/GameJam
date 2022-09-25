@@ -106,12 +106,14 @@ public class GameManager : MonoBehaviour
             this.money = this.money +1000;
           //animationScript.blinkBlueCoroutine();
             animationScript.moneyUpCoroutine();
+            SoundManager.Instance.playMoneyWin();
         }
         else if (index>=4)
         {
             this.money = this.money -1000;
             // animationScript.blinkRedCoroutine();
             animationScript.moneyDownCoroutine();
+            SoundManager.Instance.playMoneyLoss();
         }
 
     }
@@ -143,15 +145,17 @@ public class GameManager : MonoBehaviour
         int roll = Random.Range(1, 10);
         if(risk > roll)
         {
+            //LOSS
             Debug.Log("Roll lost");
             animationScript.moneyDownCoroutine();
-            //nimationScript.blinkRedCoroutine();
+            SoundManager.Instance.playMoneyLoss();
         }
         else
         {
+            //WIN 
             this.money = this.money + (depositAmount * interest);
             animationScript.moneyUpCoroutine();
-            //nimationScript.blinkBlueCoroutine();
+            SoundManager.Instance.playMoneyWin();
 
         }
 

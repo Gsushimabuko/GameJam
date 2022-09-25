@@ -20,7 +20,8 @@ public class SoundManager : MonoBehaviour
 
     
     public AudioClip minigameWin;
-    public AudioClip minigameSound;
+    public AudioClip minigameLoss;
+    public AudioClip minigameCounter;
 
     public AudioClip moneyLoss;
     public AudioClip moneyWin;
@@ -124,5 +125,13 @@ public class SoundManager : MonoBehaviour
     public void playMoneyLoss()
     {
         sfxSource.PlayOneShot(this.moneyLoss);
+    }
+    public void playMinigameWin()
+    {
+        sfxSource.PlayOneShot(this.minigameWin);
+    }
+    public void playMiniGameLoss()
+    {
+        sfxSource.PlayOneShot(this.minigameLoss);
     }
 }
