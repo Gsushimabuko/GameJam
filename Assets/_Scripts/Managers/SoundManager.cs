@@ -17,7 +17,6 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField]
     private AudioClip[] _minigameSounds;
-
     
     public AudioClip minigameWin;
     public AudioClip minigameLoss;
@@ -26,11 +25,8 @@ public class SoundManager : MonoBehaviour
     public AudioClip moneyLoss;
     public AudioClip moneyWin;
 
-
     [SerializeField]
     private AudioClip[] _hapinessTracks;
-
-
 
         void Awake()
     {

@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     #region stats
     public float hapiness = 50f;
-    public float money;
+    public float money = 0;
     public float work = 50f;
     public float health = 100f;
     public float socials = 50f;
@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
     private float _timeWindow = 1f;
     private int rolledEvents = 0;
     private float _rollProbability = 60;
-    private int activeEvents = 0;
 
     void Awake()
     {

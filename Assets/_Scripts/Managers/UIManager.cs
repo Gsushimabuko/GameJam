@@ -103,6 +103,7 @@ public class UIManager : MonoBehaviour
         //WORK WINDOWS / MINIGAME
         _minigameWindow.SetActive(false);
 
+        UpdateSliders();
     }
 
     public void UpdateActiveEventsNumber(int number)
@@ -186,15 +187,18 @@ public class UIManager : MonoBehaviour
     public void openEventWindow(bool noClose)
     {
         //Set values in UI
-        eventNavigationNumber = 0;
-        UpdateEventWindow(eventNavigationNumber);
-        openWindow(4);
-        
-        if(noClose)
+        if(DataManager.Instance.activeEvents.Count != 0)
         {
-            var button = _windows[4].transform.GetChild(0).GetComponent<Button>();
-            button.interactable = false;
-            PauseGame();
+            eventNavigationNumber = 0;
+            UpdateEventWindow(eventNavigationNumber);
+            openWindow(4);
+
+            if (noClose)
+            {
+                var button = _windows[4].transform.GetChild(0).GetComponent<Button>();
+                button.interactable = false;
+                PauseGame();
+            }
         }
     }
 
@@ -244,12 +248,17 @@ public class UIManager : MonoBehaviour
         //Animation
 
         //Update sliders and money counter
-        //_sliders[0].value = GameManager.Instance.work;
-        //_sliders[1].value = GameManager.Instance.health;
-        //_sliders[2].value = GameManager.Instance.socials;
+        UpdateSliders();
 
         moneyStatText.text = GameManager.Instance.money.ToString();
 
+    }
+
+    public void UpdateSliders()
+    {
+        _sliders[0].value = GameManager.Instance.work;
+        _sliders[1].value = GameManager.Instance.health;
+        _sliders[2].value = GameManager.Instance.socials;
     }
 
     public OptionClass GetOption(int index)
