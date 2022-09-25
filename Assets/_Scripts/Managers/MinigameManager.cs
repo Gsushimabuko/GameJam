@@ -17,7 +17,12 @@ public class MinigameManager : MonoBehaviour
     private float _windowTime;
     private int _type;
     private bool gameStarted = false;
-    private bool win = false;
+
+    [SerializeField]
+    private Button _retryButton;
+
+    [SerializeField]
+    private Button _closeButton;
 
     void Awake()
     {
@@ -52,13 +57,18 @@ public class MinigameManager : MonoBehaviour
             OnButtonClicked(3);
         });
 
-        enableButtons(false);
-    }
+        _retryButton.onClick.AddListener(() =>
+        {
+            OnGameStarted();
+        });
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        _closeButton.onClick.AddListener(() =>
+        {
+            CloseGame();
+        });
+
+        enableButtons(false);
+        _retryButton.interactable = false;
     }
 
     void enableButtons(bool state)
@@ -72,18 +82,13 @@ public class MinigameManager : MonoBehaviour
     public void OnGameStarted()
     {
         Debug.Log("GAME STAATO");
+        _retryButton.interactable = false;
         
 
         //Disable other inputs
         //Countdown
         //Start game
         StartGame();
-
-        //Play sound
-
-        
-        //Wait for input
-        //Result
     }
 
     void StartGame()
@@ -99,10 +104,11 @@ public class MinigameManager : MonoBehaviour
 
     void EndGame()
     {
+        //Activate retry button
+        _retryButton.interactable = true;
         _type = -1;
         gameStarted = false;
         enableButtons(false);
-        UIManager.Instance.EndMinigame();
     }
 
     void OnButtonClicked(int type)
@@ -122,6 +128,13 @@ public class MinigameManager : MonoBehaviour
             gameStarted = false;
             enableButtons(false);
         }
+
+        EndGame();
+    }
+
+    void CloseGame()
+    {
+        UIManager.Instance.EndMinigame();
     }
 
     IEnumerator TriggerItem()
@@ -147,7 +160,6 @@ public class MinigameManager : MonoBehaviour
         if (gameStarted)
         {
             enableButtons(false);
-            win = false;
             Debug.Log("LOSE");
         }
     }
