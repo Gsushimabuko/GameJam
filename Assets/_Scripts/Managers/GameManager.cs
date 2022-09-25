@@ -16,18 +16,11 @@ public class GameManager : MonoBehaviour
     public float events = 0;
     #endregion
 
-    //private List<EventClass> _unlockedEvents = new List<string> { };
-    //private List<EventClass> _lockedEvents;
-    //private List<EventClass> _usedEvents;
-
-    private List<string> _unlockedEvents = new List<string>{ "a", "b", "c", "d", "e", "f" };
-    private List<string> _lockedEvents = new List<string> { "x", "y", "z" };
-    private List<string> _usedEvents = new List<string> { };
-
     private int timeCont = 0;
     private float _timeWindow = 1f;
     private int rolledEvents = 0;
     private float _rollProbability = 60;
+    private int activeEvents = 0;
 
     void Awake()
     {
@@ -63,24 +56,21 @@ public class GameManager : MonoBehaviour
 
         if(roll > _rollProbability)
         {
-            _rollProbability = 111;
+            //Get event
             rolledEvents++;
-            Debug.Log("Eventos rolleados en " + timeCont + " intentos: " + rolledEvents);
-            
             EventClass eventTriggered = DataManager.Instance.GetEvent();
+            Debug.Log("Eventos rolleados en " + timeCont + " intentos: " + rolledEvents);
 
-            triggerEvent(eventTriggered);
+            //Update currentEvents number stat
+            UIManager.Instance.UpdateActiveEventsNumber(DataManager.Instance.activeEvents.Count);
+            //Make sound
+            //Make animation
         }
     }
+
     public float getMoney()
     {
-        return this.money;
-    }
-
-
-    private void triggerEvent(EventClass eventObj)
-    {
-      UIManager.Instance.openEventWindow(false);
+        return money;
     }
 
     public void changeStats(float money, float work, float health, float socials, float hapiness)

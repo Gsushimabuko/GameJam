@@ -40,6 +40,13 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject eventPanel;
 
+    [SerializeField]
+    private Button[] _navigationEventButtons;
+
+    [SerializeField]
+    private TMPro.TextMeshProUGUI eventsNumber;
+    public int eventNavigationNumber = 0;
+
     void Awake()
     {
         if (Instance == null)
@@ -58,6 +65,16 @@ public class UIManager : MonoBehaviour
         startMinigameButton.onClick.AddListener(() =>
         {
             StartMinigame();
+        });
+
+        _navigationEventButtons[0].onClick.AddListener(() =>
+        {
+            GoToPreviousEvent();
+        });
+
+        _navigationEventButtons[1].onClick.AddListener(() =>
+        {
+            GoToNextEvent();
         });
 
         _buttons[0].onClick.AddListener(() => openWindow(0));
@@ -86,6 +103,25 @@ public class UIManager : MonoBehaviour
         //WORK WINDOWS / MINIGAME
         _minigameWindow.SetActive(false);
 
+    }
+
+    public void UpdateActiveEventsNumber(int number)
+    {
+        eventsNumber.text = number.ToString();
+    }
+
+    public void GoToNextEvent()
+    {
+        eventNavigationNumber = Mathf.Min(DataManager.Instance.activeEvents.Count - 1, eventNavigationNumber + 1);
+        Debug.Log(eventNavigationNumber);
+        UpdateEventWindow(eventNavigationNumber);
+    }
+
+    public void GoToPreviousEvent()
+    {
+        eventNavigationNumber = Mathf.Max(0, eventNavigationNumber-1);
+        Debug.Log(eventNavigationNumber);
+        UpdateEventWindow(eventNavigationNumber);
     }
 
     public void StartMinigame()
@@ -149,9 +185,9 @@ public class UIManager : MonoBehaviour
 
     public void openEventWindow(bool noClose)
     {
-        //GameManager.Instance.currentEvent;
         //Set values in UI
-        UpdateEventWindow();
+        eventNavigationNumber = 0;
+        UpdateEventWindow(eventNavigationNumber);
         openWindow(4);
         
         if(noClose)
@@ -162,19 +198,19 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdateEventWindow()
+    public void UpdateEventWindow(int index)
     {
-        eventPanel.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(0).title;
-        eventPanel.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(0).body;
+        eventPanel.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(index).title;
+        eventPanel.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(index).body;
 
-        _options[0].transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(0).title1;
-        _options[0].transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(0).body1;
+        _options[0].transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(index).title1;
+        _options[0].transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(index).body1;
 
-        _options[1].transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(0).title2;
-        _options[1].transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(0).body2;
+        _options[1].transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(index).title2;
+        _options[1].transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(index).body2;
 
-        _options[2].transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(0).title3;
-        _options[2].transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(0).body3;
+        _options[2].transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(index).title3;
+        _options[2].transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(index).body3;
 
         Debug.Log("Evento: " + DataManager.Instance.GetCurrentEvent(0).title);
     }
@@ -182,7 +218,6 @@ public class UIManager : MonoBehaviour
     public void closeEventWindow(bool noClose)
     {
         closeWindow(4);
-
 
         if (noClose)
         {
@@ -199,7 +234,8 @@ public class UIManager : MonoBehaviour
 
         //Change stats
         GameManager.Instance.onOptionSelected(option);
-
+        DataManager.Instance.RemoveEventFromActiveList(eventNavigationNumber);
+        UpdateActiveEventsNumber(DataManager.Instance.activeEvents.Count);
         //Show result window
 
         //Close event Window and result window
