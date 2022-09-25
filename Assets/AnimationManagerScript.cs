@@ -13,6 +13,8 @@ public class AnimationManagerScript : MonoBehaviour
 
     public Animator moneyTextAnimator;
 
+    public Animator CounterAnimator;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -57,6 +59,14 @@ public class AnimationManagerScript : MonoBehaviour
     {
         StartCoroutine(moneyDown());
     }
+
+
+    public void setCounterState(int state)
+    {
+        CounterAnimator.SetInteger("state", state);
+    }
+
+
 
 
     IEnumerator moneyUp()

@@ -15,6 +15,9 @@ public class SoundManager : MonoBehaviour
     [SerializeField]
     private AudioClip[] _minigameSounds;
 
+    public AudioClip coinDrop;
+    public AudioClip successSound;
+
     void Awake()
     {
         if (Instance == null)

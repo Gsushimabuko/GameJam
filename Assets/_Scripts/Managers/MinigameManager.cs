@@ -8,6 +8,8 @@ public class MinigameManager : MonoBehaviour
 {
     public static MinigameManager Instance;
 
+    public AnimationManagerScript animationScript;
+
     [SerializeField]
     private Button[] _options;
 
@@ -43,6 +45,7 @@ public class MinigameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        animationScript.setCounterState(0);
         _options[0].onClick.AddListener(() =>
         {
             Debug.Log("1");
@@ -66,6 +69,7 @@ public class MinigameManager : MonoBehaviour
 
         _retryButton.onClick.AddListener(() =>
         {
+            
             OnGameStarted();
         });
 
@@ -93,6 +97,7 @@ public class MinigameManager : MonoBehaviour
         _closeButton.interactable = false;
 
         //State 0
+        
         //Animation 3..2..1
         //GO!
 
@@ -102,7 +107,9 @@ public class MinigameManager : MonoBehaviour
 
     void StartGame()
     {
+        Debug.Log("ANIMATOR: ", animationScript.CounterAnimator);
         //State 1 - Starting waiting time
+        animationScript.setCounterState(0);
         _options[_type].transform.GetChild(0).gameObject.SetActive(false);
         _windowTime = (Random.Range(20, 80))/10f;
         _type = Random.Range(0, 4);
@@ -114,6 +121,7 @@ public class MinigameManager : MonoBehaviour
         _triggerCoroutine = TriggerItem();
 
         //State 2
+        
         StartCoroutine(_triggerCoroutine);
     }
 
@@ -136,6 +144,7 @@ public class MinigameManager : MonoBehaviour
         if(type == _type)
         {
             //WIN
+            animationScript.setCounterState(3);
             Debug.Log("Subidon");
             gameStarted = false;
             enableButtons(false);
@@ -144,6 +153,7 @@ public class MinigameManager : MonoBehaviour
         else
         {
             //LOSE
+            animationScript.setCounterState(4);
             Debug.Log("Bajon");
             gameStarted = false;
             enableButtons(false);
@@ -159,6 +169,7 @@ public class MinigameManager : MonoBehaviour
 
     IEnumerator TriggerItem()
     {
+        
         //State 2 - Waiting trigger seconds
         yield return new WaitForSeconds(_windowTime);
         Debug.Log("BANG");
@@ -167,6 +178,7 @@ public class MinigameManager : MonoBehaviour
         {
             //State 3 - Playing sound
             SoundManager.Instance.PlayMinigameSound(_type);
+            animationScript.setCounterState(2);
             Debug.Log(_type);
             type.text = _type.ToString();
             StartCoroutine(_waitCoroutine);
@@ -174,13 +186,16 @@ public class MinigameManager : MonoBehaviour
         
 
     }
+   
 
-    IEnumerator WaitTime()
+
+        IEnumerator WaitTime()
     {
         yield return new WaitForSeconds(_reactionTime);
         if (gameStarted)
         {
             //LOSE
+            animationScript.setCounterState(4);
             Debug.Log("LOSE");
             EndGame();
         }
