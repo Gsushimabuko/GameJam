@@ -89,7 +89,7 @@ public class MinigameManager : MonoBehaviour
     void StartGame()
     {
         _windowTime = (Random.Range(20, 80))/10f;
-        _type = Random.Range(0, 3);
+        _type = Random.Range(0, 4);
         Debug.Log(_windowTime + " - " + _type);
         gameStarted = true;
         enableButtons(true);
@@ -138,11 +138,6 @@ public class MinigameManager : MonoBehaviour
         }
         
 
-    }
-
-    void QuickTimeEvent()
-    {
-        Task.Run(() => { StartCoroutine(WaitTime()); });
     }
 
     IEnumerator WaitTime()
