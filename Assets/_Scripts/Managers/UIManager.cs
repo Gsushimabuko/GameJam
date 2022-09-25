@@ -100,11 +100,6 @@ public class UIManager : MonoBehaviour
         _minigameWindow.SetActive(false);
     }
 
-    /*  public void openWindow(WindowID windowID)
-     {
-         _windows[(int) windowID].SetActive(true);
-     } */
-
     private void Update()
     {
         renderStat();

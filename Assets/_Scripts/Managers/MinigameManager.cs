@@ -83,7 +83,7 @@ public class MinigameManager : MonoBehaviour
     {
         Debug.Log("GAME STAATO");
         _retryButton.interactable = false;
-        
+        _closeButton.interactable = false;
 
         //Disable other inputs
         //Countdown
@@ -106,6 +106,7 @@ public class MinigameManager : MonoBehaviour
     {
         //Activate retry button
         _retryButton.interactable = true;
+        _closeButton.interactable = true;
         _type = -1;
         gameStarted = false;
         enableButtons(false);
