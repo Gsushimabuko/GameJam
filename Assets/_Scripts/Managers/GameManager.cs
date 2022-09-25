@@ -105,6 +105,11 @@ public class GameManager : MonoBehaviour
         return this.money;
     }
 
+    public void setMoney(float goalAmount)
+    {
+        this.money = goalAmount;
+    }
+
     private string getEvent()
     {
         int index = Random.Range(0, _unlockedEvents.Count-1);

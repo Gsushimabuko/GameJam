@@ -90,11 +90,14 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         renderStat();
+      
     }
     public void renderStat()
     {
         this.moneyStatText.text = gameManager.getMoney().ToString();
     }
+    
+  
 
     public void openWindow(int windowID)
     {
