@@ -24,6 +24,9 @@ public class MinigameManager : MonoBehaviour
     [SerializeField]
     private Button _closeButton;
 
+    private IEnumerator _triggerCoroutine = null;
+    private IEnumerator _waitCoroutine = null;
+
     void Awake()
     {
         if (Instance == null)
@@ -42,18 +45,22 @@ public class MinigameManager : MonoBehaviour
     {
         _options[0].onClick.AddListener(() =>
         {
+            Debug.Log("1");
             OnButtonClicked(0);
         });
         _options[1].onClick.AddListener(() =>
         {
+            Debug.Log("1");
             OnButtonClicked(1);
         });
         _options[2].onClick.AddListener(() =>
         {
+            Debug.Log("1");
             OnButtonClicked(2);
         });
         _options[3].onClick.AddListener(() =>
         {
+            Debug.Log("1");
             OnButtonClicked(3);
         });
 
@@ -85,21 +92,29 @@ public class MinigameManager : MonoBehaviour
         _retryButton.interactable = false;
         _closeButton.interactable = false;
 
-        //Disable other inputs
-        //Countdown
-        //Start game
+        //State 0
+        //Animation 3..2..1
+        //GO!
+
+        //State 1
         StartGame();
     }
 
     void StartGame()
     {
+        //State 1 - Starting waiting time
+        _options[_type].transform.GetChild(0).gameObject.SetActive(false);
         _windowTime = (Random.Range(20, 80))/10f;
         _type = Random.Range(0, 4);
         Debug.Log(_windowTime + " - " + _type);
         gameStarted = true;
         enableButtons(true);
 
-        StartCoroutine(TriggerItem());
+        _waitCoroutine = WaitTime();
+        _triggerCoroutine = TriggerItem();
+
+        //State 2
+        StartCoroutine(_triggerCoroutine);
     }
 
     void EndGame()
@@ -107,13 +122,17 @@ public class MinigameManager : MonoBehaviour
         //Activate retry button
         _retryButton.interactable = true;
         _closeButton.interactable = true;
-        _type = -1;
         gameStarted = false;
         enableButtons(false);
+
+        StopCoroutine(_triggerCoroutine);
+        StopCoroutine(_waitCoroutine);
     }
 
     void OnButtonClicked(int type)
     {
+        _options[_type].transform.GetChild(0).gameObject.SetActive(true);
+
         if(type == _type)
         {
             //WIN
@@ -140,15 +159,17 @@ public class MinigameManager : MonoBehaviour
 
     IEnumerator TriggerItem()
     {
+        //State 2 - Waiting trigger seconds
         yield return new WaitForSeconds(_windowTime);
         Debug.Log("BANG");
 
         if(gameStarted)
         {
+            //State 3 - Playing sound
             SoundManager.Instance.PlayMinigameSound(_type);
             Debug.Log(_type);
             type.text = _type.ToString();
-            StartCoroutine(WaitTime());
+            StartCoroutine(_waitCoroutine);
         }
         
 
@@ -157,11 +178,11 @@ public class MinigameManager : MonoBehaviour
     IEnumerator WaitTime()
     {
         yield return new WaitForSeconds(_reactionTime);
-        Debug.Log("aa");
         if (gameStarted)
         {
-            enableButtons(false);
+            //LOSE
             Debug.Log("LOSE");
+            EndGame();
         }
     }
 }

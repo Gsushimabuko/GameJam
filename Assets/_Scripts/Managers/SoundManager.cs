@@ -65,12 +65,12 @@ public class SoundManager : MonoBehaviour
         sfxSource.Pause();
     }
 
-    public void PauseMusic()
+    public void PauseBGM()
     {
         bgmSource.Pause();
     }
 
-    public void StopMusic()
+    public void StopBGM()
     {
         bgmSource.Stop();
     }
@@ -86,7 +86,7 @@ public class SoundManager : MonoBehaviour
     }
 
 
-    public void UnpauseMusic()
+    public void UnpauseBGM()
     {
         bgmSource.UnPause();
     }

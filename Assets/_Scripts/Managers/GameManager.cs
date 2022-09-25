@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
     private List<string> _usedEvents = new List<string> { };
 
     private int timeCont = 0;
-    private float _timeWindow = 0.5f;
     private int rolledEvents = 0;
 
     void Awake()
