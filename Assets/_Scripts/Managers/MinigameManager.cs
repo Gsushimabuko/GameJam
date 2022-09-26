@@ -136,6 +136,7 @@ public class MinigameManager : MonoBehaviour
     public void CalculatePrize()
     {
         _effort = UIManager.Instance._workSlider.value;
+        Debug.Log("Esfuerzo: " + _effort);
         int prob = Random.Range(0, 100);
 
         if (_effort < 0.25)
@@ -147,7 +148,7 @@ public class MinigameManager : MonoBehaviour
             prize = 1025;
             if (prob > 75)
             {
-                GameManager.Instance.health -= 10;
+                GameManager.Instance.changeStats(0, 0, -10, 0, 0);
             }
         }
         else if(_effort < 0.75)
@@ -155,32 +156,32 @@ public class MinigameManager : MonoBehaviour
             prize = 5000;
             if (prob < 10)
             {
-                GameManager.Instance.health -= 10;
+                GameManager.Instance.changeStats(0, 0, -10, 0, 0);
             }
             else if(prob < 40)
             {
-                GameManager.Instance.health -= 15;
+                GameManager.Instance.changeStats(0, 0, -15, 0, 0);
             }
             else if(prob < 60)
             {
-                GameManager.Instance.health -= 20;
+                GameManager.Instance.changeStats(0, 0, -20, 0, 0);
             }
         }
-        else if(_effort < 1)
+        else if(_effort <= 1)
         {
             prize = 10000;
 
             if (prob < 20)
             {
-                GameManager.Instance.health -= 20;
+                GameManager.Instance.changeStats(0, 0, -20, 0, 0);
             }
             else if (prob < 50)
             {
-                GameManager.Instance.health -= 25;
+                GameManager.Instance.changeStats(0, 0, -25, 0, 0);
             }
             else if (prob < 70)
             {
-                GameManager.Instance.health -= 30;
+                GameManager.Instance.changeStats(0, 0, -30, 0, 0);
             }
             else if (prob < 79)
             {
@@ -188,7 +189,7 @@ public class MinigameManager : MonoBehaviour
             }
             else if (prob < 80)
             {
-                GameManager.Instance.health -= 40;
+                GameManager.Instance.changeStats(0, 0, -40, 0, 0);
             }
         }
 
@@ -219,6 +220,8 @@ public class MinigameManager : MonoBehaviour
             gameStarted = false;
             enableButtons(false);
             win = true;
+            GameManager.Instance.changeStats(prize, 0, 0, 0, 0);
+            prize = 0;
         }
         else
         {

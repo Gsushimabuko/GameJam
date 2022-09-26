@@ -20,7 +20,12 @@ public class GameManager : MonoBehaviour
     private int timeCont = 0;
     private float _timeWindow = 5f;
     private int rolledEvents = 0;
-    private float _rollProbability = 30;
+    private float _rollProbability = 91.67f;
+
+    private int _gameDuration = 900;
+    private IEnumerator _gameCoroutine = null;
+
+    public int ending = -1;
 
     void Awake()
     {
@@ -33,13 +38,69 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        _gameCoroutine = WaitALife();
+
+        StartCoroutine(_gameCoroutine);
+    }
+
+    public void GetEnding()
+    {
+        if(hapiness <= 25)
+        {
+            ending = 0;
+        }
+        else if (hapiness <= 50)
+        {
+            ending = 1;
+        }
+        else if (hapiness <= 75)
+        {
+            ending = 2;
+        }
+        else if (hapiness > 75)
+        {
+            ending = 3;
+        }
+        Debug.Log(hapiness);
+    }
+
+    public bool IsGameOver()
+    {
+        if (health <= 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    IEnumerator WaitALife()
+    {
+        yield return new WaitForSeconds(_gameDuration);
+        
+        GetEnding();
+        GameOver();
+    }
+
+    public void GameOver()
+    {
+        StopAllCoroutines();
+
+        //Show window
+        UIManager.Instance.ShowGameOverScreen(ending);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("rollEvent", 0, _timeWindow);
+        InvokeRepeating("rollEvent", 5, _timeWindow);
+        InvokeRepeating("GetOld", 0, 15);
+    }
 
+    public void GetOld()
+    {
+        changeStats(0, 0, 5, 0, 0);
     }
 
     // Update is called once per frame
@@ -87,6 +148,18 @@ public class GameManager : MonoBehaviour
         this.socials += socials;
         this.hapiness += hapiness;
 
+        this.money = Mathf.Max(this.money, 0);
+        this.work = Mathf.Max(this.work, 0);
+        this.health = Mathf.Max(this.health, 0);
+        this.socials = Mathf.Max(this.socials, 0);
+        this.hapiness = Mathf.Max(this.hapiness, 0);
+
+        if(IsGameOver())
+        {
+            ending = 4;
+            GameOver();
+        }
+
         DataManager.Instance.UpdateSocialListEvents();
     }
 
@@ -133,7 +206,7 @@ public class GameManager : MonoBehaviour
         
         
     }
-  IEnumerator depositEnum(int risk)
+    IEnumerator depositEnum(int risk)
     {
         float interest = 1 + (risk * 0.1f);
         float depositAmount = 2000;

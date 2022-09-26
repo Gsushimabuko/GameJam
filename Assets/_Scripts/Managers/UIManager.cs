@@ -52,6 +52,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private TMPro.TextMeshProUGUI eventsNumber;
     public int eventNavigationNumber = 0;
+
+    [SerializeField]
+    public GameObject[] _endingScreens;
     
 
     void Awake()
@@ -270,6 +273,12 @@ public class UIManager : MonoBehaviour
         _slidersTexts[0].text = GameManager.Instance.work.ToString() + "%";
         _slidersTexts[1].text = GameManager.Instance.health.ToString() + "%";
         _slidersTexts[2].text = GameManager.Instance.socials.ToString() + "%";
+    }
+
+    public void ShowGameOverScreen(int ending)
+    {
+        _endingScreens[ending].SetActive(true);
+        Debug.Log("Ending " + ending.ToString());
     }
 
     public OptionClass GetOption(int index)
