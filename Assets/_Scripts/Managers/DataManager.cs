@@ -56,20 +56,27 @@ public class DataManager : MonoBehaviour
         List<EventClass> eventList = ChooseEventList();
 
         int index = Random.Range(0, eventList.Count);
-        var eventObj = eventList[index];
 
-        Debug.Log("Index: " + eventObj.ID);
+        var eventObj = new EventClass();
 
-        if (eventObj == null)
+        if (eventList.Count > 0)
         {
-            return null;
+            eventObj = eventList[index];
+
+            Debug.Log("Index: " + eventObj.ID);
+
+            if (eventObj == null)
+            {
+                return null;
+            }
+
+            eventList.Remove(eventObj);
+            _usedEvents.Add(eventObj);
+            activeEvents.Add(eventObj);
+
+            eventObj.Print();
         }
 
-        _unlockedEvents.Remove(eventObj);
-        _usedEvents.Add(eventObj);
-        activeEvents.Add(eventObj);
-        
-        eventObj.Print();
         return eventObj;
     }
 
