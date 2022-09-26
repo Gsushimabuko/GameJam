@@ -95,16 +95,16 @@ public class DataManager : MonoBehaviour
         }
         else if (index == 1)
         {
-            list = _socialCat5;
+            list = _socialCategory;
 
             if (list.Count == 0)
             {
-                list = _socialCategory;
+                list = _socialCat5;
             }
         }
         else if (index == 2)
         {
-            list = _socialCategory;
+            list = _socialCat5;
         }
         Debug.Log("Index de lista: " + index);
         return list;
