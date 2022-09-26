@@ -55,6 +55,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     public GameObject[] _endingScreens;
+
+    public GameObject[] eventImages;
     
 
     void Awake()

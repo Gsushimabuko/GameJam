@@ -783,7 +783,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &126118057
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1440,7 +1440,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &212063253
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4143,7 +4143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &619745251
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6518,6 +6518,12 @@ MonoBehaviour:
   - {fileID: 1915265351}
   - {fileID: 754220883}
   - {fileID: 748127924}
+  eventImages:
+  - {fileID: 1586420752}
+  - {fileID: 1285534435}
+  - {fileID: 126118056}
+  - {fileID: 619745250}
+  - {fileID: 212063252}
 --- !u!1 &890667951
 GameObject:
   m_ObjectHideFlags: 0
@@ -9178,7 +9184,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1285534436
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11321,7 +11327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1586420753
 RectTransform:
   m_ObjectHideFlags: 0

@@ -160,6 +160,16 @@ public class GameManager : MonoBehaviour
         this.socials = Mathf.Min(this.socials, 100);
         this.hapiness = Mathf.Min(this.hapiness, 100);
 
+        if(money > 0)
+        {
+            AnimationManagerScript.Instance.moneyUpCoroutine();
+        }
+        else if (money < 0)
+        {
+            AnimationManagerScript.Instance.moneyDownCoroutine();
+        }
+        AnimationManagerScript.Instance.moneyDownCoroutine();
+
         if (IsGameOver())
         {
             ending = 4;
