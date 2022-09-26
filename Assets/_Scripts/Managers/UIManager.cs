@@ -64,6 +64,8 @@ public class UIManager : MonoBehaviour
     public TMPro.TextMeshProUGUI resultBody;
 
     public TMPro.TextMeshProUGUI timerText;
+    public float timeLeft = 900;
+    public bool timerOn = true;
     
 
     void Awake()
@@ -81,6 +83,9 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        timerOn = true;
+
         startMinigameButton.onClick.AddListener(() =>
         {
             StartMinigame();
@@ -160,10 +165,37 @@ public class UIManager : MonoBehaviour
         _minigameWindow.SetActive(false);
     }
 
-    private void Update()
+    void Update()
     {
+        
+        if(timerOn)
+        {
+            if(timeLeft > 0)
+            {
+                Debug.Log(timeLeft);
+                timeLeft -= Time.deltaTime;
+                UpdateTimer(timeLeft);
+            }
+            else
+            {
+                timeLeft = 0;
+                timerOn = false;
+            }
+        }
+
         renderStat();
     }
+
+    public void UpdateTimer(float currentTime)
+    {
+        currentTime -= 1;
+
+        float minutes = Mathf.FloorToInt(currentTime / 60);
+        float seconds = Mathf.FloorToInt(currentTime % 60);
+
+        timerText.text = string.Format("{0:00} : {1:00}", minutes, seconds);
+    }
+
     public void renderStat()
     {
         moneyStatText.text = "S/." + GameManager.Instance.getMoney() + ".00";

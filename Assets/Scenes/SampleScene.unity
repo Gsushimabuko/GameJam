@@ -7152,6 +7152,8 @@ MonoBehaviour:
   resultTitle: {fileID: 64338526}
   resultBody: {fileID: 2096109434}
   timerText: {fileID: 2018510619}
+  timeLeft: 0
+  timerOn: 0
 --- !u!1 &890667951
 GameObject:
   m_ObjectHideFlags: 0
@@ -15265,8 +15267,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4284431664
+  m_fontColor: {r: 0.1882353, g: 0.23921569, b: 0.37254903, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
