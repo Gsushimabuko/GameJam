@@ -11,6 +11,7 @@ public class EventClass
     public string category;
     public float tsocial;
     public float trsocial;
+    public string results;
 
     #region Option 1
     public string title1;
@@ -21,6 +22,7 @@ public class EventClass
     public float money1;
     public float social1;
     public float hapiness1;
+    public string results1;
     #endregion
 
     #region Option 2
@@ -32,6 +34,7 @@ public class EventClass
     public float money2;
     public float social2;
     public float hapiness2;
+    public string results2;
     #endregion
 
     #region Option 3
@@ -43,6 +46,7 @@ public class EventClass
     public float money3;
     public float social3;
     public float hapiness3;
+    public string results3;
     #endregion
 
     public string[] options;

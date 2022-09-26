@@ -57,6 +57,13 @@ public class UIManager : MonoBehaviour
     public GameObject[] _endingScreens;
 
     public GameObject[] eventImages;
+
+    public GameObject resultPanel;
+    public Button closeButtonResult;
+    public TMPro.TextMeshProUGUI resultTitle;
+    public TMPro.TextMeshProUGUI resultBody;
+
+    public TMPro.TextMeshProUGUI timerText;
     
 
     void Awake()
@@ -87,6 +94,11 @@ public class UIManager : MonoBehaviour
         _navigationEventButtons[1].onClick.AddListener(() =>
         {
             GoToNextEvent();
+        });
+
+        closeButtonResult.onClick.AddListener(() =>
+        {
+            CloseResultWindow();
         });
 
         _buttons[0].onClick.AddListener(() => openWindow(0));
@@ -216,6 +228,36 @@ public class UIManager : MonoBehaviour
 
     public void UpdateEventWindow(int index)
     {
+        string category = DataManager.Instance.GetCurrentEvent(index).category;
+
+        foreach(GameObject image in eventImages)
+        {
+            image.SetActive(false);
+        }
+
+        Debug.Log(category);
+        if (category == "Muchos amigos")
+        {
+            eventImages[3].SetActive(true);
+        }
+        else if(category == "No amigos")
+        {
+            eventImages[0].SetActive(true);
+        }
+        else if (category == "Pocos amigos")
+        {
+            eventImages[1].SetActive(true);
+        }
+        else if (category == "Regular amigos")
+        {
+            eventImages[2].SetActive(true);
+        }
+        else
+        {
+            eventImages[4].SetActive(true);
+        }
+
+
         eventPanel.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(index).title;
         eventPanel.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(index).body;
 
@@ -233,6 +275,7 @@ public class UIManager : MonoBehaviour
 
     public void closeEventWindow(bool noClose)
     {
+        resultPanel.SetActive(false);
         closeWindow(4);
 
         if (noClose)
@@ -253,9 +296,21 @@ public class UIManager : MonoBehaviour
         DataManager.Instance.RemoveEventFromActiveList(eventNavigationNumber);
         UpdateActiveEventsNumber(DataManager.Instance.activeEvents.Count);
         //Show result window
+        UpdateResultWindow(option, index);
+        resultPanel.SetActive(true);
+    }
 
+    public void UpdateResultWindow(OptionClass option, int index)
+    {
+        resultTitle.text = option.title;
+        resultBody.text = option.result;
+    }
+
+    public void CloseResultWindow()
+    {
         //Close event Window and result window
         closeEventWindow(true);
+        resultPanel.SetActive(false);
 
         //Animation
 
@@ -263,7 +318,6 @@ public class UIManager : MonoBehaviour
         UpdateSliders();
 
         moneyStatText.text = "S/." + GameManager.Instance.money.ToString() + ".00";
-
     }
 
     public void UpdateSliders()
@@ -298,6 +352,8 @@ public class UIManager : MonoBehaviour
             option.health = DataManager.Instance.GetCurrentEvent(0).health1;
             option.social = DataManager.Instance.GetCurrentEvent(0).social1;
             option.money = DataManager.Instance.GetCurrentEvent(0).money1;
+
+            option.result = DataManager.Instance.GetCurrentEvent(0).results1;
         }
         else if(index == 1)
         {
@@ -310,6 +366,8 @@ public class UIManager : MonoBehaviour
             option.health = DataManager.Instance.GetCurrentEvent(0).health2;
             option.social = DataManager.Instance.GetCurrentEvent(0).social2;
             option.money = DataManager.Instance.GetCurrentEvent(0).money2;
+
+            option.result = DataManager.Instance.GetCurrentEvent(0).results2;
         }
         else if(index == 2)
         {
@@ -322,6 +380,8 @@ public class UIManager : MonoBehaviour
             option.health = DataManager.Instance.GetCurrentEvent(0).health3;
             option.social = DataManager.Instance.GetCurrentEvent(0).social3;
             option.money = DataManager.Instance.GetCurrentEvent(0).money3;
+
+            option.result = DataManager.Instance.GetCurrentEvent(0).results3;
         }
 
         return option;
