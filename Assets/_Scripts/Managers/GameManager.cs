@@ -95,11 +95,12 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         InvokeRepeating("rollEvent", 5, _timeWindow);
-        InvokeRepeating("GetOld", 0, 15);
+        InvokeRepeating("GetOld", 0, 5);
     }
 
     public void GetOld()
     {
+        Debug.Log("a");
         changeStats(0, 0, 5, 0, 0);
     }
 
@@ -154,7 +155,13 @@ public class GameManager : MonoBehaviour
         this.socials = Mathf.Max(this.socials, 0);
         this.hapiness = Mathf.Max(this.hapiness, 0);
 
-        if(IsGameOver())
+        this.money = Mathf.Min(this.money, 100);
+        this.work = Mathf.Min(this.work, 100);
+        this.health = Mathf.Min(this.health, 100);
+        this.socials = Mathf.Min(this.socials, 100);
+        this.hapiness = Mathf.Min(this.hapiness, 100);
+
+        if (IsGameOver())
         {
             ending = 4;
             GameOver();
