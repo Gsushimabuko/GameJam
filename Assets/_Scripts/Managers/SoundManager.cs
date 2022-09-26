@@ -50,7 +50,8 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         bgmSource.volume = 0.1f;
-       sfxSource.volume = 0.2f;
+        sfxSource.volume = 0.2f;
+        PlayBGM();
     }
     void Update()
     {
