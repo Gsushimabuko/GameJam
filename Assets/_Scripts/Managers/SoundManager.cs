@@ -55,7 +55,7 @@ public class SoundManager : MonoBehaviour
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
-            sfxSource.PlayOneShot(this.clickSound);
+            sfxSource.PlayOneShot(clickSound);
     }
 
     private void PlayBGM()
@@ -130,5 +130,10 @@ public class SoundManager : MonoBehaviour
     public void playMiniGameLoss()
     {
         sfxSource.PlayOneShot(this.minigameLoss);
+    }
+
+    public void PlayNewEventSound()
+    {
+        sfxSource.PlayOneShot(newEventSound);
     }
 }

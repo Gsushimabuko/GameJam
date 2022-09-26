@@ -26,8 +26,13 @@ public class MinigameManager : MonoBehaviour
     [SerializeField]
     private Button _closeButton;
 
+    private bool win = false;
+    private float prize = 0;
+
     private IEnumerator _triggerCoroutine = null;
     private IEnumerator _waitCoroutine = null;
+
+    private float _effort = 0;
 
     void Awake()
     {
@@ -48,22 +53,22 @@ public class MinigameManager : MonoBehaviour
         animationScript.setCounterState(0);
         _options[0].onClick.AddListener(() =>
         {
-            Debug.Log("1");
+            //Debug.Log("1");
             OnButtonClicked(0);
         });
         _options[1].onClick.AddListener(() =>
         {
-            Debug.Log("1");
+            //Debug.Log("1");
             OnButtonClicked(1);
         });
         _options[2].onClick.AddListener(() =>
         {
-            Debug.Log("1");
+            //Debug.Log("1");
             OnButtonClicked(2);
         });
         _options[3].onClick.AddListener(() =>
         {
-            Debug.Log("1");
+            //Debug.Log("1");
             OnButtonClicked(3);
         });
 
@@ -107,11 +112,14 @@ public class MinigameManager : MonoBehaviour
 
     void StartGame()
     {
+        
+        CalculatePrize();
+
         Debug.Log("ANIMATOR: ", animationScript.CounterAnimator);
         //State 1 - Starting waiting time
         animationScript.setCounterState(0);
         _options[_type].transform.GetChild(0).gameObject.SetActive(false);
-        _windowTime = (Random.Range(20, 80))/10f;
+        _windowTime = (Random.Range(40, 80))/10f;
         _type = Random.Range(0, 4);
         Debug.Log(_windowTime + " - " + _type);
         gameStarted = true;
@@ -125,6 +133,67 @@ public class MinigameManager : MonoBehaviour
         StartCoroutine(_triggerCoroutine);
     }
 
+    public void CalculatePrize()
+    {
+        _effort = UIManager.Instance._workSlider.value;
+        int prob = Random.Range(0, 100);
+
+        if (_effort < 0.25)
+        {
+            prize = 600;
+        }
+        else if(_effort < 0.50)
+        {
+            prize = 1025;
+            if (prob > 75)
+            {
+                GameManager.Instance.health -= 10;
+            }
+        }
+        else if(_effort < 0.75)
+        {
+            prize = 5000;
+            if (prob < 10)
+            {
+                GameManager.Instance.health -= 10;
+            }
+            else if(prob < 40)
+            {
+                GameManager.Instance.health -= 15;
+            }
+            else if(prob < 60)
+            {
+                GameManager.Instance.health -= 20;
+            }
+        }
+        else if(_effort < 1)
+        {
+            prize = 10000;
+
+            if (prob < 20)
+            {
+                GameManager.Instance.health -= 20;
+            }
+            else if (prob < 50)
+            {
+                GameManager.Instance.health -= 25;
+            }
+            else if (prob < 70)
+            {
+                GameManager.Instance.health -= 30;
+            }
+            else if (prob < 79)
+            {
+                GameManager.Instance.health -= 35;
+            }
+            else if (prob < 80)
+            {
+                GameManager.Instance.health -= 40;
+            }
+        }
+
+        UIManager.Instance.UpdateSliders();
+    }
     void EndGame()
     {
         //Activate retry button
@@ -149,7 +218,7 @@ public class MinigameManager : MonoBehaviour
             SoundManager.Instance.playMinigameWin();
             gameStarted = false;
             enableButtons(false);
-            
+            win = true;
         }
         else
         {
@@ -158,6 +227,7 @@ public class MinigameManager : MonoBehaviour
             SoundManager.Instance.playMiniGameLoss();
             gameStarted = false;
             enableButtons(false);
+            win = false;
         }
 
         EndGame();
@@ -199,6 +269,7 @@ public class MinigameManager : MonoBehaviour
             SoundManager.Instance.playMiniGameLoss();
             animationScript.setCounterState(4);
             Debug.Log("LOSE");
+            win = false;
             EndGame();
         }
     }

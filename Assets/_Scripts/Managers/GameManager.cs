@@ -18,9 +18,9 @@ public class GameManager : MonoBehaviour
     #endregion
 
     private int timeCont = 0;
-    private float _timeWindow = 1f;
+    private float _timeWindow = 5f;
     private int rolledEvents = 0;
-    private float _rollProbability = 60;
+    private float _rollProbability = 30;
 
     void Awake()
     {
@@ -63,10 +63,11 @@ public class GameManager : MonoBehaviour
             //Get event
             rolledEvents++;
             EventClass eventTriggered = DataManager.Instance.GetEvent();
-            Debug.Log("Eventos rolleados en " + timeCont + " intentos: " + rolledEvents);
+            //Debug.Log("Eventos rolleados en " + timeCont + " intentos: " + rolledEvents);
 
             //Update currentEvents number stat
             UIManager.Instance.UpdateActiveEventsNumber(DataManager.Instance.activeEvents.Count);
+            SoundManager.Instance.PlayNewEventSound();
             //Make sound
             //Make animation
         }

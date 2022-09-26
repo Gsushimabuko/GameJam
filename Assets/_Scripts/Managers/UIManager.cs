@@ -29,6 +29,9 @@ public class UIManager : MonoBehaviour
     private Slider[] _sliders;
 
     [SerializeField]
+    public Slider _workSlider;
+
+    [SerializeField]
     private TMPro.TextMeshProUGUI[] _slidersTexts;
 
     [SerializeField]
@@ -49,6 +52,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private TMPro.TextMeshProUGUI eventsNumber;
     public int eventNavigationNumber = 0;
+    
 
     void Awake()
     {
@@ -117,14 +121,14 @@ public class UIManager : MonoBehaviour
     public void GoToNextEvent()
     {
         eventNavigationNumber = Mathf.Min(DataManager.Instance.activeEvents.Count - 1, eventNavigationNumber + 1);
-        Debug.Log(eventNavigationNumber);
+        //Debug.Log(eventNavigationNumber);
         UpdateEventWindow(eventNavigationNumber);
     }
 
     public void GoToPreviousEvent()
     {
         eventNavigationNumber = Mathf.Max(0, eventNavigationNumber-1);
-        Debug.Log(eventNavigationNumber);
+        //Debug.Log(eventNavigationNumber);
         UpdateEventWindow(eventNavigationNumber);
     }
 
@@ -264,8 +268,8 @@ public class UIManager : MonoBehaviour
         _sliders[2].value = GameManager.Instance.socials;
 
         _slidersTexts[0].text = GameManager.Instance.work.ToString() + "%";
-        _slidersTexts[1].text = GameManager.Instance.work.ToString() + "%";
-        _slidersTexts[2].text = GameManager.Instance.work.ToString() + "%";
+        _slidersTexts[1].text = GameManager.Instance.health.ToString() + "%";
+        _slidersTexts[2].text = GameManager.Instance.socials.ToString() + "%";
     }
 
     public OptionClass GetOption(int index)
