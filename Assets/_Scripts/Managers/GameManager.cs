@@ -185,25 +185,31 @@ public class GameManager : MonoBehaviour
         changeStats(option.money, option.work, option.health, option.social, option.hapiness);
     }
 
-    public void rollCrypto(){
-        int index = Random.Range(0, 10);
+    public void rollCrypto()
+    {
 
-        if(index  <=3)
+        if (money >= 1000)
         {
-            this.money = this.money +1000;
-          //animationScript.blinkBlueCoroutine();
-            animationScript.moneyUpCoroutine();
-            SoundManager.Instance.playMoneyWin();
-        }
-        else if (index>=4)
-        {
-            this.money = this.money -1000;
-            // animationScript.blinkRedCoroutine();
-            animationScript.moneyDownCoroutine();
-            SoundManager.Instance.playMoneyLoss();
-        }
+            int index = Random.Range(0, 10);
 
+            if (index <= 3)
+            {
+                this.money = this.money + 1000;
+                //animationScript.blinkBlueCoroutine();
+                animationScript.moneyUpCoroutine();
+                SoundManager.Instance.playMoneyWin();
+            }
+            else if (index >= 4)
+            {
+                this.money = this.money - 1000;
+                // animationScript.blinkRedCoroutine();
+                animationScript.moneyDownCoroutine();
+                SoundManager.Instance.playMoneyLoss();
+            }
+        }
     }
+        
+
 
     public void deposit(int depositType)
     {
