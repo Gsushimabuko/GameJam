@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     private int timeCont = 0;
     private float _timeWindow = 5f;
     private int rolledEvents = 0;
-    private float _rollProbability = 91.67f;
+    private float _rollProbability = 81.67f;
 
     private int _gameDuration = 900;
     private IEnumerator _gameCoroutine = null;
@@ -220,7 +220,7 @@ public class GameManager : MonoBehaviour
         if(money >= 2000)
         {
             this.money = this.money - depositAmount;
-            yield return new WaitForSeconds(10);
+            yield return new WaitForSeconds(60);
             int roll = Random.Range(1, 10);
             if (risk > roll)
             {
