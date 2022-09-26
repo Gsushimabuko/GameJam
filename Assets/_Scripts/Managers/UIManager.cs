@@ -29,6 +29,9 @@ public class UIManager : MonoBehaviour
     private Slider[] _sliders;
 
     [SerializeField]
+    private TMPro.TextMeshProUGUI[] _slidersTexts;
+
+    [SerializeField]
     public TMPro.TextMeshProUGUI moneyStatText;
 
     [SerializeField]
@@ -142,7 +145,7 @@ public class UIManager : MonoBehaviour
     }
     public void renderStat()
     {
-        this.moneyStatText.text = gameManager.getMoney().ToString();
+        moneyStatText.text = "S/." + GameManager.Instance.getMoney() + ".00";
     }
 
     public void openWindow(int windowID)
@@ -250,7 +253,7 @@ public class UIManager : MonoBehaviour
         //Update sliders and money counter
         UpdateSliders();
 
-        moneyStatText.text = GameManager.Instance.money.ToString();
+        moneyStatText.text = "S/." + GameManager.Instance.money.ToString() + ".00";
 
     }
 
@@ -259,6 +262,10 @@ public class UIManager : MonoBehaviour
         _sliders[0].value = GameManager.Instance.work;
         _sliders[1].value = GameManager.Instance.health;
         _sliders[2].value = GameManager.Instance.socials;
+
+        _slidersTexts[0].text = GameManager.Instance.work.ToString() + "%";
+        _slidersTexts[1].text = GameManager.Instance.work.ToString() + "%";
+        _slidersTexts[2].text = GameManager.Instance.work.ToString() + "%";
     }
 
     public OptionClass GetOption(int index)
