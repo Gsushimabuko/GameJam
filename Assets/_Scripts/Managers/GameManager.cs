@@ -155,7 +155,6 @@ public class GameManager : MonoBehaviour
         this.socials = Mathf.Max(this.socials, 0);
         this.hapiness = Mathf.Max(this.hapiness, 0);
 
-        this.money = Mathf.Min(this.money, 100);
         this.work = Mathf.Min(this.work, 100);
         this.health = Mathf.Min(this.health, 100);
         this.socials = Mathf.Min(this.socials, 100);
@@ -178,6 +177,7 @@ public class GameManager : MonoBehaviour
 
     public void rollCrypto(){
         int index = Random.Range(0, 10);
+
         if(index  <=3)
         {
             this.money = this.money +1000;
@@ -217,24 +217,28 @@ public class GameManager : MonoBehaviour
     {
         float interest = 1 + (risk * 0.1f);
         float depositAmount = 2000;
-        this.money = this.money - depositAmount;
-        yield return new WaitForSeconds(10);
-        int roll = Random.Range(1, 10);
-        if(risk > roll)
+        if(money >= 2000)
         {
-            //LOSS
-            Debug.Log("Roll lost");
-            animationScript.moneyDownCoroutine();
-            SoundManager.Instance.playMoneyLoss();
-        }
-        else
-        {
-            //WIN 
-            this.money = this.money + (depositAmount * interest);
-            animationScript.moneyUpCoroutine();
-            SoundManager.Instance.playMoneyWin();
+            this.money = this.money - depositAmount;
+            yield return new WaitForSeconds(10);
+            int roll = Random.Range(1, 10);
+            if (risk > roll)
+            {
+                //LOSS
+                Debug.Log("Roll lost");
+                animationScript.moneyDownCoroutine();
+                SoundManager.Instance.playMoneyLoss();
+            }
+            else
+            {
+                //WIN 
+                this.money = this.money + (depositAmount * interest);
+                animationScript.moneyUpCoroutine();
+                SoundManager.Instance.playMoneyWin();
 
+            }
         }
+        
 
     }
 
