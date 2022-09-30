@@ -137,4 +137,32 @@ public class SoundManager : MonoBehaviour
     {
         sfxSource.PlayOneShot(newEventSound);
     }
+
+    public void FadeInBGM()
+    {
+        StartCoroutine("FadeIn");
+    }
+
+    IEnumerator FadeIn()
+    {
+        for (float i = 0.1f; i >= 0; i = i - 0.01f)
+        {
+            bgmSource.volume = i;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    public void FadeOutBGM()
+    {
+        StartCoroutine("FadeOut");
+    }
+
+    IEnumerator FadeOut()
+    {
+        for (float i = 0; i <= 0.1f; i = i + 0.01f)
+        {
+            bgmSource.volume = i;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
 }

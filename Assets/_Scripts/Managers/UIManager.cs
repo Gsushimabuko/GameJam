@@ -79,11 +79,13 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        Time.timeScale = 0;
     }
     // Start is called before the first frame update
     void Start()
     {
-
+        timeLeft = 902;
         timerOn = true;
 
         startMinigameButton.onClick.AddListener(() =>
@@ -132,7 +134,34 @@ public class UIManager : MonoBehaviour
         //WORK WINDOWS / MINIGAME
         _minigameWindow.SetActive(false);
 
+        foreach(Slider slider in _sliders)
+        {
+            slider.enabled = false;
+        }
+
         UpdateSliders();
+
+        Time.timeScale = 1;
+    }
+
+    void Update()
+    {
+        if (timerOn)
+        {
+            if (timeLeft > 0)
+            {
+                Debug.Log(timeLeft);
+                timeLeft -= Time.deltaTime;
+                UpdateTimer(timeLeft);
+            }
+            else
+            {
+                timeLeft = 0;
+                timerOn = false;
+            }
+        }
+
+        renderStat();
     }
 
     public void UpdateActiveEventsNumber(int number)
@@ -165,27 +194,6 @@ public class UIManager : MonoBehaviour
         _minigameWindow.SetActive(false);
     }
 
-    void Update()
-    {
-        
-        if(timerOn)
-        {
-            if(timeLeft > 0)
-            {
-                Debug.Log(timeLeft);
-                timeLeft -= Time.deltaTime;
-                UpdateTimer(timeLeft);
-            }
-            else
-            {
-                timeLeft = 0;
-                timerOn = false;
-            }
-        }
-
-        renderStat();
-    }
-
     public void UpdateTimer(float currentTime)
     {
         currentTime -= 1;
@@ -193,7 +201,8 @@ public class UIManager : MonoBehaviour
         float minutes = Mathf.FloorToInt(currentTime / 60);
         float seconds = Mathf.FloorToInt(currentTime % 60);
 
-        timerText.text = string.Format("{0:00} : {1:00}", minutes, seconds);
+        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        Debug.Log(minutes + " " + seconds);
     }
 
     public void renderStat()
@@ -245,6 +254,7 @@ public class UIManager : MonoBehaviour
         //Set values in UI
         if(DataManager.Instance.activeEvents.Count != 0)
         {
+            Time.timeScale = 0;
             eventNavigationNumber = 0;
             UpdateEventWindow(eventNavigationNumber);
             openWindow(4);
@@ -310,12 +320,12 @@ public class UIManager : MonoBehaviour
         resultPanel.SetActive(false);
         closeWindow(4);
 
-        if (noClose)
-        {
-            var button = _windows[4].transform.GetChild(0).GetComponent<Button>();
-            button.interactable = true;
-            ResumeGame();
-        }
+        //if (noClose)
+        //{
+        //    var button = _windows[4].transform.GetChild(0).GetComponent<Button>();
+        //    button.interactable = true;
+        //    ResumeGame();
+        //}
     }
 
     public void onClickOption(int index)
@@ -350,6 +360,7 @@ public class UIManager : MonoBehaviour
         UpdateSliders();
 
         moneyStatText.text = "S/." + GameManager.Instance.money.ToString() + ".00";
+        Time.timeScale = 1;
     }
 
     public void UpdateSliders()

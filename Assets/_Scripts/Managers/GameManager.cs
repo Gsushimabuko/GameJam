@@ -18,11 +18,11 @@ public class GameManager : MonoBehaviour
     #endregion
 
     private int timeCont = 0;
-    private float _timeWindow = 5f;
+    public float _eventTimeWindow = 60f;
     private int rolledEvents = 0;
-    private float _rollProbability = 40.67f;
+    public float _rollProbability = 40.67f;
 
-    private int _gameDuration = 900;
+    public int _gameDuration = 900;
     private IEnumerator _gameCoroutine = null;
 
     public int ending = -1;
@@ -94,13 +94,29 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("rollEvent", 5, _timeWindow);
+        _eventTimeWindow = 10;
+        //InvokeRepeating("rollEvent", 5, _timeWindow);
+        InvokeRepeating("GetFixedEvent", 5, _eventTimeWindow);
         InvokeRepeating("GetOld", 0, 5);
+    }
+
+    private void GetFixedEvent()
+    {
+        //Get event
+        rolledEvents++;
+        EventClass eventTriggered = DataManager.Instance.GetEvent();
+        //Debug.Log("Eventos rolleados en " + timeCont + " intentos: " + rolledEvents);
+
+        //Update currentEvents number stat
+        UIManager.Instance.UpdateActiveEventsNumber(DataManager.Instance.activeEvents.Count);
+        SoundManager.Instance.PlayNewEventSound();
+
+        UIManager.Instance.openEventWindow(false);
     }
 
     public void GetOld()
     {
-        Debug.Log("a");
+        //Debug.Log("a");
         changeStats(0, 0, 5, 0, 0);
     }
 

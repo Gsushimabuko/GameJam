@@ -15,7 +15,7 @@ public class MinigameManager : MonoBehaviour
 
     public TMPro.TextMeshProUGUI type;
 
-    private float _reactionTime = 2f;
+    private float _reactionTime = 1.5f;
     private float _windowTime;
     private int _type;
     private bool gameStarted = false;
@@ -50,6 +50,7 @@ public class MinigameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _reactionTime = 1.5f;
         animationScript.setCounterState(0);
         _options[0].onClick.AddListener(() =>
         {
@@ -102,26 +103,30 @@ public class MinigameManager : MonoBehaviour
         _closeButton.interactable = false;
 
         //State 0
-        
+
         //Animation 3..2..1
         //GO!
-
+        SoundManager.Instance.FadeInBGM();
         //State 1
         StartGame();
     }
 
     void StartGame()
     {
-        
         CalculatePrize();
 
         Debug.Log("ANIMATOR: ", animationScript.CounterAnimator);
         //State 1 - Starting waiting time
+
+        //Animation count down
         animationScript.setCounterState(0);
         _options[_type].transform.GetChild(0).gameObject.SetActive(false);
-        _windowTime = (Random.Range(40, 80))/10f;
+        //_windowTime = (Random.Range(40, 80))/10f;
+        _windowTime = 4;
         _type = Random.Range(0, 4);
+
         Debug.Log(_windowTime + " - " + _type);
+
         gameStarted = true;
         enableButtons(true);
 
@@ -129,7 +134,7 @@ public class MinigameManager : MonoBehaviour
         _triggerCoroutine = TriggerItem();
 
         //State 2
-        
+        //MakeSound();
         StartCoroutine(_triggerCoroutine);
     }
 
@@ -205,6 +210,7 @@ public class MinigameManager : MonoBehaviour
 
         StopCoroutine(_triggerCoroutine);
         StopCoroutine(_waitCoroutine);
+        SoundManager.Instance.FadeOutBGM();
     }
 
     void OnButtonClicked(int type)
@@ -243,7 +249,6 @@ public class MinigameManager : MonoBehaviour
 
     IEnumerator TriggerItem()
     {
-        
         //State 2 - Waiting trigger seconds
         yield return new WaitForSeconds(_windowTime);
         Debug.Log("BANG");
@@ -260,10 +265,23 @@ public class MinigameManager : MonoBehaviour
         
 
     }
+
+    private void MakeSound()
+    {
+        if (gameStarted)
+        {
+            //State 3 - Playing sound
+            SoundManager.Instance.PlayMinigameSound(_type);
+            animationScript.setCounterState(2);
+            Debug.Log(_type);
+            type.text = _type.ToString();
+            StartCoroutine(_waitCoroutine);
+        }
+    }
    
 
 
-        IEnumerator WaitTime()
+    IEnumerator WaitTime()
     {
         yield return new WaitForSeconds(_reactionTime);
         if (gameStarted)

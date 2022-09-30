@@ -7152,7 +7152,7 @@ MonoBehaviour:
   resultTitle: {fileID: 64338526}
   resultBody: {fileID: 2096109434}
   timerText: {fileID: 2018510619}
-  timeLeft: 0
+  timeLeft: 900
   timerOn: 0
 --- !u!1 &890667951
 GameObject:
@@ -13994,6 +13994,9 @@ MonoBehaviour:
   health: 100
   socials: 0
   events: 0
+  _eventTimeWindow: 60
+  _rollProbability: 40.67
+  _gameDuration: 900
   ending: -1
 --- !u!4 &1926594755
 Transform:
