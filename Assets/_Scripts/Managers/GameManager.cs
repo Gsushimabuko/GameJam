@@ -94,9 +94,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _eventTimeWindow = 10;
+        //_eventTimeWindow = 10;
         //InvokeRepeating("rollEvent", 5, _timeWindow);
-        InvokeRepeating("GetFixedEvent", 5, _eventTimeWindow);
+        InvokeRepeating("GetFixedEvent", _eventTimeWindow, _eventTimeWindow);
         InvokeRepeating("GetOld", 0, 5);
     }
 
