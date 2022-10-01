@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public  AnimationManagerScript animationScript;
     public SoundManager soundManager;
+    public UIManager UIManager;
 
     #region stats
     public float hapiness = 50f;
@@ -25,6 +26,8 @@ public class GameManager : MonoBehaviour
 
     public int _gameDuration = 900;
     private IEnumerator _gameCoroutine = null;
+
+    public int depositCount;
 
     public int ending = -1;
 
@@ -252,6 +255,8 @@ public class GameManager : MonoBehaviour
         
     public void deposit(int depositType)
     {
+   
+        UIManager.Instance.activateDepositIcon();
         if(depositType == 1)
         {
             StartCoroutine(depositEnum(1));
@@ -274,6 +279,8 @@ public class GameManager : MonoBehaviour
         float depositAmount = 2000;
         if(money >= 2000)
         {
+            depositCount++;
+            UIManager.Instance.activateDepositIcon();
             this.money = this.money - depositAmount;
             yield return new WaitForSeconds(60);
             int roll = Random.Range(1, 10);
@@ -291,6 +298,12 @@ public class GameManager : MonoBehaviour
                 animationScript.moneyUpCoroutine();
                 SoundManager.Instance.playMoneyWin();
             }
+            depositCount--;
+            if(depositCount <= 0)
+            {
+                UIManager.Instance.deactivateDepositIcon();
+            }
+            
         }
         else
         {

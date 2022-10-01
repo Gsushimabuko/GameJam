@@ -69,6 +69,8 @@ public class UIManager : MonoBehaviour
     private bool _hasMoney = false;
 
     public GameObject popUpNoMoney;
+    public GameObject depositPendingIcon;
+  
     
 
     void Awake()
@@ -134,6 +136,7 @@ public class UIManager : MonoBehaviour
             window.SetActive(false);
         }
 
+
         foreach (GameObject window in bankWindows)
         {
             window.SetActive(false);
@@ -150,6 +153,17 @@ public class UIManager : MonoBehaviour
         UpdateSliders();
 
         Time.timeScale = 1;
+    }
+    public void activateDepositIcon(){
+        
+        depositPendingIcon.SetActive(true);
+    }
+
+    public void deactivateDepositIcon()
+    {
+       
+        depositPendingIcon.SetActive(false);
+        
     }
 
     void Update()
