@@ -101,6 +101,7 @@ public class MinigameManager : MonoBehaviour
         Debug.Log("GAME STAATO");
         _retryButton.interactable = false;
         _closeButton.interactable = false;
+        enableButtons(false);
 
         //State 0
 
@@ -115,20 +116,25 @@ public class MinigameManager : MonoBehaviour
     {
         CalculatePrize();
 
-        Debug.Log("ANIMATOR: ", animationScript.CounterAnimator);
+        //Debug.Log("ANIMATOR: ", animationScript.CounterAnimator);
         //State 1 - Starting waiting time
 
         //Animation count down
         animationScript.setCounterState(0);
-        _options[_type].transform.GetChild(0).gameObject.SetActive(false);
+        foreach(Button option in _options)
+        {
+            option.transform.GetChild(0).gameObject.SetActive(false);
+        }
+        
         //_windowTime = (Random.Range(40, 80))/10f;
-        _windowTime = 4;
+        _windowTime = 3.5f;
+        _reactionTime = 1.5f;
         _type = Random.Range(0, 4);
 
-        Debug.Log(_windowTime + " - " + _type);
+        //Debug.Log(_windowTime + " - " + _type);
 
         gameStarted = true;
-        enableButtons(true);
+        
 
         _waitCoroutine = WaitTime();
         _triggerCoroutine = TriggerItem();
@@ -215,10 +221,13 @@ public class MinigameManager : MonoBehaviour
 
     void OnButtonClicked(int type)
     {
+        _options[type].transform.GetChild(0).gameObject.SetActive(true);
         _options[_type].transform.GetChild(0).gameObject.SetActive(true);
 
-        if(type == _type)
+        if (type == _type)
         {
+            _options[type].transform.GetChild(0).GetComponent<Image>().color = new Color32(55, 107, 164, 255);
+            
             //WIN
             animationScript.setCounterState(3);
             Debug.Log("Subidon");
@@ -231,6 +240,8 @@ public class MinigameManager : MonoBehaviour
         }
         else
         {
+            _options[type].transform.GetChild(0).GetComponent<Image>().color = new Color32(242, 86, 6, 255);
+            _options[_type].transform.GetChild(0).GetComponent<Image>().color = new Color32(55, 107, 164, 255);
             //LOSE
             animationScript.setCounterState(4);
             SoundManager.Instance.playMiniGameLoss();
@@ -249,9 +260,10 @@ public class MinigameManager : MonoBehaviour
 
     IEnumerator TriggerItem()
     {
-        //State 2 - Waiting trigger seconds
         yield return new WaitForSeconds(_windowTime);
-        Debug.Log("BANG");
+        enableButtons(true);
+        //State 2 - Waiting trigger seconds
+        //Debug.Log("BANG");
 
         if(gameStarted)
         {
@@ -262,8 +274,6 @@ public class MinigameManager : MonoBehaviour
             type.text = _type.ToString();
             StartCoroutine(_waitCoroutine);
         }
-        
-
     }
 
     private void MakeSound()
@@ -279,8 +289,6 @@ public class MinigameManager : MonoBehaviour
         }
     }
    
-
-
     IEnumerator WaitTime()
     {
         yield return new WaitForSeconds(_reactionTime);

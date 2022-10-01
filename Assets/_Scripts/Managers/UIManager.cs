@@ -66,6 +66,9 @@ public class UIManager : MonoBehaviour
     public TMPro.TextMeshProUGUI timerText;
     public float timeLeft = 900;
     public bool timerOn = true;
+    private bool _hasMoney = false;
+
+    public GameObject popUpNoMoney;
     
 
     void Awake()
@@ -87,6 +90,11 @@ public class UIManager : MonoBehaviour
     {
         timeLeft = 902;
         timerOn = true;
+
+        popUpNoMoney.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() =>
+        {
+            ClosePopUpNoMoney();
+        });
 
         startMinigameButton.onClick.AddListener(() =>
         {
@@ -150,7 +158,7 @@ public class UIManager : MonoBehaviour
         {
             if (timeLeft > 0)
             {
-                Debug.Log(timeLeft);
+                //Debug.Log(timeLeft);
                 timeLeft -= Time.deltaTime;
                 UpdateTimer(timeLeft);
             }
@@ -162,6 +170,16 @@ public class UIManager : MonoBehaviour
         }
 
         renderStat();
+    }
+
+    public void OpenPopUpNoMoney()
+    {
+        popUpNoMoney.SetActive(true);
+    }
+
+    public void ClosePopUpNoMoney()
+    {
+        popUpNoMoney.SetActive(false);
     }
 
     public void UpdateActiveEventsNumber(int number)
@@ -202,7 +220,7 @@ public class UIManager : MonoBehaviour
         float seconds = Mathf.FloorToInt(currentTime % 60);
 
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-        Debug.Log(minutes + " " + seconds);
+        //Debug.Log(minutes + " " + seconds);
     }
 
     public void renderStat()
@@ -299,20 +317,31 @@ public class UIManager : MonoBehaviour
             eventImages[4].SetActive(true);
         }
 
-
         eventPanel.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(index).title;
         eventPanel.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(index).body;
 
-        _options[0].transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(index).title1;
-        _options[0].transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(index).body1;
+        WriteOptions();
 
-        _options[1].transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(index).title2;
-        _options[1].transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(index).body2;
+        //Debug.Log("Evento: " + DataManager.Instance.GetCurrentEvent(0).title);
+    }
 
-        _options[2].transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(index).title3;
-        _options[2].transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = DataManager.Instance.GetCurrentEvent(index).body3;
-
-        Debug.Log("Evento: " + DataManager.Instance.GetCurrentEvent(0).title);
+    private void WriteOptions()
+    {
+        for(int i = 0; i <= 2; i++)
+        {
+            OptionClass option = GetOption(i);
+            _options[i].transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = option.title;
+            string body = option.body;
+            if (option.money >= 0)
+            {
+                body += "\n\nEsta opción no cuesta nada.";
+            }
+            else
+            {
+                body += "\n\nEsta opción cuesta S/." + Mathf.Abs(option.money) + ".";
+            }
+            _options[i].transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = body;
+        }
     }
 
     public void closeEventWindow(bool noClose)
@@ -331,36 +360,83 @@ public class UIManager : MonoBehaviour
     public void onClickOption(int index)
     {
         OptionClass option = GetOption(index);
-        Debug.Log("Se eligio " + option.ID);
-
-        //Change stats
-        GameManager.Instance.onOptionSelected(option);
-        DataManager.Instance.RemoveEventFromActiveList(eventNavigationNumber);
-        UpdateActiveEventsNumber(DataManager.Instance.activeEvents.Count);
-        //Show result window
-        UpdateResultWindow(option, index);
-        resultPanel.SetActive(true);
+        //Debug.Log("Se eligio " + option.ID);
+        Debug.Log("Dinero: " + GameManager.Instance.money + "\nCosto: " + option.money);
+        if (option.money < 0 && Mathf.Abs(option.money) > GameManager.Instance.money)
+        {
+            UpdateResultWindow(option, -1);
+        }
+        else
+        {
+            //Show result window
+            UpdateResultWindow(option, index);
+            
+            //Change stats
+            GameManager.Instance.onOptionSelected(option);
+            DataManager.Instance.RemoveEventFromActiveList(eventNavigationNumber);
+            UpdateActiveEventsNumber(DataManager.Instance.activeEvents.Count);
+        }
     }
 
     public void UpdateResultWindow(OptionClass option, int index)
     {
-        resultTitle.text = option.title;
-        resultBody.text = option.result;
+        if(index==-1)
+        {
+            _hasMoney = false;
+            resultTitle.text = "Dinero insuficiente";
+            resultBody.text = "No tienes suficiente dinero para elegir esta opción. Debiste ahorrar más :(.";
+        }
+        else
+        {
+            _hasMoney = true;
+            resultTitle.text = option.title;
+            resultBody.text = option.result;
+            resultBody.text += "\n";
+
+            if (option.health > 0)
+            {
+                resultBody.text += "\n+" + Mathf.Abs(option.health) + " de salud";
+            }
+            else if (option.health < 0)
+            {
+                resultBody.text += "\n-" + Mathf.Abs(option.health) + " de salud";
+            }
+
+            if (option.social > 0)
+            {
+                resultBody.text += "\n+" + Mathf.Abs(option.social) + " de social";
+            }
+            else if (option.social < 0)
+            {
+                resultBody.text += "\n-" + Mathf.Abs(option.social) + " de social";
+            }
+
+            if (option.money > 0)
+            {
+                resultBody.text += "\n+ S/." + Mathf.Abs(option.money);
+            }
+            else if (option.money < 0)
+            {
+                resultBody.text += "\n- S/." + Mathf.Abs(option.money);
+            }
+        }
+        resultPanel.SetActive(true);
     }
 
     public void CloseResultWindow()
     {
-        //Close event Window and result window
-        closeEventWindow(true);
         resultPanel.SetActive(false);
 
-        //Animation
+        if (_hasMoney)
+        {
+            //Close event Window and result window
+            closeEventWindow(true);
+            Time.timeScale = 1;
 
-        //Update sliders and money counter
-        UpdateSliders();
-
-        moneyStatText.text = "S/." + GameManager.Instance.money.ToString() + ".00";
-        Time.timeScale = 1;
+            //Update sliders and money counter
+            UpdateSliders();
+            moneyStatText.text = "S/." + GameManager.Instance.money.ToString() + ".00";
+        }
     }
 
     public void UpdateSliders()

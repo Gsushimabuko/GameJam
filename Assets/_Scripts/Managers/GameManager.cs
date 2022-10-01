@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         StopAllCoroutines();
+        MinigameManager.Instance.StopAllCoroutines();
 
         //Show window
         UIManager.Instance.ShowGameOverScreen(ending);
@@ -97,7 +98,7 @@ public class GameManager : MonoBehaviour
         //_eventTimeWindow = 10;
         //InvokeRepeating("rollEvent", 5, _timeWindow);
         InvokeRepeating("GetFixedEvent", _eventTimeWindow, _eventTimeWindow);
-        InvokeRepeating("GetOld", 0, 5);
+        InvokeRepeating("GetOld", 0, 2);
     }
 
     private void GetFixedEvent()
@@ -117,7 +118,8 @@ public class GameManager : MonoBehaviour
     public void GetOld()
     {
         //Debug.Log("a");
-        changeStats(0, 0, 5, 0, 0);
+        changeStats(0, 0, 1, 0, 0);
+        UIManager.Instance.UpdateSliders();
     }
 
     // Update is called once per frame
@@ -202,7 +204,6 @@ public class GameManager : MonoBehaviour
 
     public void rollCrypto()
     {
-
         if (money >= 1000)
         {
             int index = Random.Range(0, 10);
@@ -222,10 +223,12 @@ public class GameManager : MonoBehaviour
                 SoundManager.Instance.playMoneyLoss();
             }
         }
+        else
+        {
+            UIManager.Instance.OpenPopUpNoMoney();
+        }
     }
         
-
-
     public void deposit(int depositType)
     {
         if(depositType == 1)
@@ -266,10 +269,13 @@ public class GameManager : MonoBehaviour
                 this.money = this.money + (depositAmount * interest);
                 animationScript.moneyUpCoroutine();
                 SoundManager.Instance.playMoneyWin();
-
             }
         }
-        
+        else
+        {
+            UIManager.Instance.OpenPopUpNoMoney();
+            //UIManager.Instance.close
+        }
 
     }
 
