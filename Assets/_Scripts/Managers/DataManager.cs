@@ -8,21 +8,31 @@ public class DataManager : MonoBehaviour
 
     public EventClassList events = new EventClassList();
 
-    public List<EventClass> _unlockedEvents; //Unlocked events
-    public List<EventClass> _socialCategory; //Current state
-    public List<EventClass> _socialCat5; //Always available
+    public List<EventClass> defaultTree;
+    public List<EventClass> tree1;
+    public List<EventClass> tree2;
+    public List<EventClass> tree3;
+    public List<EventClass> tree4;
 
-    public List<EventClass> _socialCat1; //De 0 a 25
-    public List<EventClass> _socialCat2; //De 25 a 50
-    public List<EventClass> _socialCat3; //De 50 a 75
-    public List<EventClass> _socialCat4; //De 75 a 100
+    //public List<EventClass> _unlockedEvents; //Unlocked events
+    //public List<EventClass> _socialCategory; //Current state
+    //public List<EventClass> _socialCat5; //Always available
 
-    public List<EventClass> _lockedEvents;
+    //public List<EventClass> _socialCat1; //De 0 a 25
+    //public List<EventClass> _socialCat2; //De 25 a 50
+    //public List<EventClass> _socialCat3; //De 50 a 75
+    //public List<EventClass> _socialCat4; //De 75 a 100
+
+    //public List<EventClass> _lockedEvents;
     public List<EventClass> _usedEvents;
     public TextAsset textJSON;
 
     public List<EventClass> activeEvents = new();
     public EventClass currentEvent;
+
+    private int _eventIndex = 0;
+    private int _treeIndex = 0;
+    public List<List<EventClass>> _trees;
 
     void Awake()
     {
@@ -41,42 +51,67 @@ public class DataManager : MonoBehaviour
     {
         events = JsonUtility.FromJson<EventClassList>("{\"events\":" + textJSON.text + "}");
         events.GenerateEventList();
-        events.GenerateSocialLists();
+        events.GenerateTrees();
+        events.PrintEvents(1);
 
-        _socialCat1 = events._socialCat1; //De 0 a 25
-        _socialCat2 = events._socialCat2; //De 25 a 50
-        _socialCat3 = events._socialCat3; //De 50 a 75
-        _socialCat4 = events._socialCat4; //De 75 a 100
-        _socialCat5 = events._socialCat5; //De 0 a 100
-        _lockedEvents = events._lockedEvents;
-}
+        _trees = events._trees;
+
+        defaultTree = events.defaultTree;
+        tree1 = events.tree1;
+        tree2 = events.tree2;
+        tree3 = events.tree3;
+        tree4 = events.tree4;
+
+        //_socialCat1 = events._socialCat1; //De 0 a 25
+        //_socialCat2 = events._socialCat2; //De 25 a 50
+        //_socialCat3 = events._socialCat3; //De 50 a 75
+        //_socialCat4 = events._socialCat4; //De 75 a 100
+        //_socialCat5 = events._socialCat5; //De 0 a 100
+        //_lockedEvents = events._lockedEvents;
+    }
+
+    //public EventClass GetEvent()
+    //{
+    //    List<EventClass> eventList = ChooseEventList();
+
+    //    int index = Random.Range(0, eventList.Count);
+
+    //    var eventObj = new EventClass();
+
+    //    if (eventList.Count > 0)
+    //    {
+    //        eventObj = eventList[index];
+
+    //        Debug.Log("Index: " + eventObj.ID);
+
+    //        if (eventObj == null)
+    //        {
+    //            return null;
+    //        }
+
+    //        eventList.Remove(eventObj);
+    //        _usedEvents.Add(eventObj);
+    //        activeEvents.Add(eventObj);
+
+    //        eventObj.Print();
+    //    }
+
+    //    return eventObj;
+    //}
 
     public EventClass GetEvent()
     {
-        List<EventClass> eventList = ChooseEventList();
+        List<EventClass> eventList = _trees[_treeIndex];
+        EventClass eventObj = eventList[_eventIndex];
 
-        int index = Random.Range(0, eventList.Count);
+        _eventIndex++;
 
-        var eventObj = new EventClass();
-
-        if (eventList.Count > 0)
+        if(eventObj.tree != 0)
         {
-            eventObj = eventList[index];
-
-            Debug.Log("Index: " + eventObj.ID);
-
-            if (eventObj == null)
-            {
-                return null;
-            }
-
-            eventList.Remove(eventObj);
-            _usedEvents.Add(eventObj);
-            activeEvents.Add(eventObj);
-
-            eventObj.Print();
+            _treeIndex++;
+            _eventIndex = 0;
         }
-
+        eventObj.Print();
         return eventObj;
     }
 
@@ -85,74 +120,74 @@ public class DataManager : MonoBehaviour
         activeEvents.RemoveAt(index);
     }
 
-    public List<EventClass> ChooseEventList()
-    {
-        int index = Random.Range(0, 3);
+    //public List<EventClass> ChooseEventList()
+    //{
+    //    int index = Random.Range(0, 3);
 
-        List<EventClass> list = null;
+    //    List<EventClass> list = null;
 
-        if(index == 0)
-        {
-            list = _unlockedEvents;
+    //    if(index == 0)
+    //    {
+    //        list = _unlockedEvents;
 
-            if(list.Count == 0)
-            {
-                list = _socialCat5;
-            }
-        }
-        else if (index == 1)
-        {
-            list = _socialCategory;
+    //        if(list.Count == 0)
+    //        {
+    //            list = _socialCat5;
+    //        }
+    //    }
+    //    else if (index == 1)
+    //    {
+    //        list = _socialCategory;
 
-            if (list.Count == 0)
-            {
-                list = _socialCat5;
-            }
-        }
-        else if (index == 2)
-        {
-            list = _socialCat5;
-        }
-        Debug.Log("Index de lista: " + index);
-        return list;
+    //        if (list.Count == 0)
+    //        {
+    //            list = _socialCat5;
+    //        }
+    //    }
+    //    else if (index == 2)
+    //    {
+    //        list = _socialCat5;
+    //    }
+    //    Debug.Log("Index de lista: " + index);
+    //    return list;
 
-    }
+    //}
 
-    public void UpdateSocialListEvents()
-    {
-        if(GameManager.Instance.socials < 25)
-        {
-            _socialCategory = _socialCat1;
-        }
-        else if (GameManager.Instance.socials < 50)
-        {
-            _socialCategory = _socialCat2;
-        }
-        else if (GameManager.Instance.socials < 75)
-        {
-            _socialCategory = _socialCat3;
-        }
-        else if (GameManager.Instance.socials <= 100)
-        {
-            _socialCategory = _socialCat4;
-        }
-    }
+    //public void UpdateSocialListEvents()
+    //{
+    //    if(GameManager.Instance.socials < 25)
+    //    {
+    //        _socialCategory = _socialCat1;
+    //    }
+    //    else if (GameManager.Instance.socials < 50)
+    //    {
+    //        _socialCategory = _socialCat2;
+    //    }
+    //    else if (GameManager.Instance.socials < 75)
+    //    {
+    //        _socialCategory = _socialCat3;
+    //    }
+    //    else if (GameManager.Instance.socials <= 100)
+    //    {
+    //        _socialCategory = _socialCat4;
+    //    }
+    //}
 
-    public void UnlockEvent(int ID)
-    {
-        if(!(ID == 0 || ID == -1))
-        {
-            foreach (EventClass eventclass in _lockedEvents)
-            {
-                if (eventclass.ID == ID)
-                {
-                    _unlockedEvents.Add(eventclass);
-                    _lockedEvents.Remove(eventclass);
-                }
-            }
-        }
+    //public void UnlockEvent(int ID)
+    //{
+    //    if(!(ID == 0 || ID == -1))
+    //    {
+    //        foreach (EventClass eventclass in _lockedEvents)
+    //        {
+    //            if (eventclass.ID == ID)
+    //            {
+    //                _unlockedEvents.Add(eventclass);
+    //                _lockedEvents.Remove(eventclass);
+    //            }
+    //        }
+    //    }
 
-    }
+    //}
 
     public EventClass GetCurrentEvent(int index)
     {

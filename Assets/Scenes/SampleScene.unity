@@ -4457,22 +4457,18 @@ MonoBehaviour:
   events:
     events: []
     eventList: []
-    _socialCat1: []
-    _socialCat2: []
-    _socialCat3: []
-    _socialCat4: []
-    _socialCat5: []
-    _lockedEvents: []
-  _unlockedEvents: []
-  _socialCategory: []
-  _socialCat5: []
-  _socialCat1: []
-  _socialCat2: []
-  _socialCat3: []
-  _socialCat4: []
-  _lockedEvents: []
+    defaultTree: []
+    tree1: []
+    tree2: []
+    tree3: []
+    tree4: []
+  defaultTree: []
+  tree1: []
+  tree2: []
+  tree3: []
+  tree4: []
   _usedEvents: []
-  textJSON: {fileID: 4900000, guid: 0759ad87a0f915243bc5b8fadaeacefe, type: 3}
+  textJSON: {fileID: 4900000, guid: c1e44de8bfd1961488551924263456d0, type: 3}
   activeEvents: []
   currentEvent:
     ID: 0
@@ -4481,7 +4477,8 @@ MonoBehaviour:
     category: 
     tsocial: 0
     trsocial: 0
-    results: 
+    tree: 0
+    waitTime: 0
     title1: 
     body1: 
     work1: 0

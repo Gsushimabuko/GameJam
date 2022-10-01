@@ -11,7 +11,8 @@ public class EventClass
     public string category;
     public float tsocial;
     public float trsocial;
-    public string results;
+    public int tree;
+    public int waitTime;
 
     #region Option 1
     public string title1;
