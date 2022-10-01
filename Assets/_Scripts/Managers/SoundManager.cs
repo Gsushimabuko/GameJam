@@ -25,8 +25,8 @@ public class SoundManager : MonoBehaviour
     public AudioClip moneyLoss;
     public AudioClip moneyWin;
 
-    [SerializeField]
-    private AudioClip[] _hapinessTracks;
+    public GameManager gameManager;
+    
 
         void Awake()
     {
@@ -164,5 +164,37 @@ public class SoundManager : MonoBehaviour
             bgmSource.volume = i;
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+ 
+    public void movePitch(float newPitch)
+    {
+        bgmSource.pitch = newPitch;
+
+    }
+
+    public void checkHapinessAndMovePitch()
+    {
+        if(getHapiness() >= 75)
+        {
+            movePitch(1);
+        }
+        else if (getHapiness() >= 50)
+        {
+            movePitch(0.8f);
+        }
+        else if (getHapiness() >= 25)
+        {
+            movePitch(0.6f);
+        }
+        else
+        {
+            movePitch(0.4f);
+        }
+    }
+
+    public float getHapiness()
+    {
+       return gameManager.getHapiness();
     }
 }

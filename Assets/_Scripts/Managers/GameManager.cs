@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public  AnimationManagerScript animationScript;
+    public SoundManager soundManager;
 
     #region stats
     public float hapiness = 50f;
@@ -158,6 +159,11 @@ public class GameManager : MonoBehaviour
         return money;
     }
 
+    public float getHapiness()
+    {
+        return hapiness;
+    }
+
     public void changeStats(float money, float work, float health, float socials, float hapiness)
     {
         //Affect stats
@@ -194,6 +200,7 @@ public class GameManager : MonoBehaviour
         }
 
         DataManager.Instance.UpdateSocialListEvents();
+        soundManager.checkHapinessAndMovePitch();
     }
 
     public void onOptionSelected(OptionClass option)

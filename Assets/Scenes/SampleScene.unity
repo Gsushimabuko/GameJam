@@ -2448,7 +2448,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: ece005fbb337dc041a83c0f4b07e52d0, type: 3}
   newEventSound: {fileID: 8300000, guid: 4ff6599f9a396f245b37a460f7878800, type: 3}
-  _bgm: {fileID: 8300000, guid: 0bb07e6af8164254b9e1727166225f1c, type: 3}
+  _bgm: {fileID: 8300000, guid: 36848deea3cd2194f8b2e53a2b9b17dd, type: 3}
   _minigameSounds:
   - {fileID: 8300000, guid: 9be079489971e1d4497462a8570ad094, type: 3}
   - {fileID: 8300000, guid: 4a6d37f3e83843941ae3c07d60f8e8da, type: 3}
@@ -2459,7 +2459,7 @@ MonoBehaviour:
   minigameCounter: {fileID: 8300000, guid: d3507c375d0eb594a8d5caea4e1e53ca, type: 3}
   moneyLoss: {fileID: 8300000, guid: c13345a6e1e1abb439b80e2c73308677, type: 3}
   moneyWin: {fileID: 8300000, guid: afaf8574f06d13c4088ad61c948d2d23, type: 3}
-  _hapinessTracks: []
+  gameManager: {fileID: 1926594754}
 --- !u!1 &319736858
 GameObject:
   m_ObjectHideFlags: 0
@@ -6207,6 +6207,7 @@ GameObject:
   m_Component:
   - component: {fileID: 723273926}
   - component: {fileID: 723273927}
+  - component: {fileID: 723273928}
   m_Layer: 0
   m_Name: VideoPlayer
   m_TagString: Untagged
@@ -6269,6 +6270,19 @@ VideoPlayer:
   m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
   m_VideoShaders: []
+--- !u!114 &723273928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723273925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bec8cd98daad0bd409f6cef28e1c1c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waitTime: 10
 --- !u!1 &748127924
 GameObject:
   m_ObjectHideFlags: 0
@@ -14558,13 +14572,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationScript: {fileID: 284504895}
-  hapiness: 50
+  soundManager: {fileID: 308149558}
+  hapiness: 60
   money: 0
   work: 0
   health: 100
   socials: 0
   events: 0
-  _eventTimeWindow: 60
+  _eventTimeWindow: 5
   _rollProbability: 40.67
   _gameDuration: 900
   ending: -1
