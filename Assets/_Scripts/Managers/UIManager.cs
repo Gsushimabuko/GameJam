@@ -70,6 +70,9 @@ public class UIManager : MonoBehaviour
 
     public GameObject popUpNoMoney;
     public GameObject depositPendingIcon;
+
+    public Slider sfxSlider;
+    public Slider bgmSlider;
   
     
 
@@ -93,7 +96,7 @@ public class UIManager : MonoBehaviour
         timeLeft = 902;
         timerOn = true;
 
-        popUpNoMoney.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() =>
+        popUpNoMoney.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(() =>
         {
             ClosePopUpNoMoney();
         });
@@ -107,6 +110,10 @@ public class UIManager : MonoBehaviour
         {
             GoToPreviousEvent();
         });
+
+        bgmSlider.onValueChanged.AddListener(delegate { SoundManager.Instance.bgmSource.volume = bgmSlider.value * 0.2f; });
+
+        sfxSlider.onValueChanged.AddListener(delegate { SoundManager.Instance.sfxSource.volume = sfxSlider.value * 0.4f; });
 
         _navigationEventButtons[1].onClick.AddListener(() =>
         {

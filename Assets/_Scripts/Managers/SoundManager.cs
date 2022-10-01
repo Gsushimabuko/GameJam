@@ -6,8 +6,8 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
 
-    private AudioSource bgmSource;
-    private AudioSource sfxSource;
+    public AudioSource bgmSource;
+    public AudioSource sfxSource;
 
     public AudioClip clickSound;
     public AudioClip newEventSound;
