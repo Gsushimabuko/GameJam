@@ -106,12 +106,15 @@ public class DataManager : MonoBehaviour
 
         _eventIndex++;
 
-        if(eventObj.tree != 0)
+        if(_eventIndex >= eventList.Count)
         {
             _treeIndex++;
             _eventIndex = 0;
         }
-        eventObj.Print();
+
+        _usedEvents.Add(eventObj);
+        activeEvents.Add(eventObj);
+
         return eventObj;
     }
 

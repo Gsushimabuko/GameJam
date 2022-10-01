@@ -14663,7 +14663,7 @@ MonoBehaviour:
   health: 100
   socials: 50
   events: 0
-  _eventTimeWindow: 30
+  _eventTimeWindow: 1
   _rollProbability: 40.67
   _gameDuration: 900
   ending: -1
