@@ -199,7 +199,7 @@ public class GameManager : MonoBehaviour
             GameOver();
         }
 
-        DataManager.Instance.UpdateSocialListEvents();
+        //DataManager.Instance.UpdateSocialListEvents();
         soundManager.checkHapinessAndMovePitch();
     }
 
