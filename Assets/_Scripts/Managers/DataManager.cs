@@ -30,8 +30,9 @@ public class DataManager : MonoBehaviour
     public List<EventClass> activeEvents = new();
     public EventClass currentEvent;
 
-    private int _eventIndex = 0;
-    private int _treeIndex = 0;
+    [Header("Event tree")]
+    public int _eventIndex = 0;
+    public int _treeIndex = 0;
     public List<List<EventClass>> _trees;
 
     void Awake()
@@ -108,8 +109,22 @@ public class DataManager : MonoBehaviour
 
         if(_eventIndex >= eventList.Count)
         {
-            _treeIndex++;
             _eventIndex = 0;
+
+            if (GameManager.Instance.socials <= 33)
+            {
+                //weeb route
+                _treeIndex = 3;
+            }
+            else if (GameManager.Instance.socials <= 67)
+            {
+                _treeIndex = 2;
+            }
+            else if (GameManager.Instance.socials <= 100)
+            {
+                //manyado route
+                _treeIndex = 1;
+            }
         }
 
         _usedEvents.Add(eventObj);

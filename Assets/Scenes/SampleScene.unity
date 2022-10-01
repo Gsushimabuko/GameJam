@@ -4468,7 +4468,7 @@ MonoBehaviour:
   tree3: []
   tree4: []
   _usedEvents: []
-  textJSON: {fileID: 4900000, guid: c1e44de8bfd1961488551924263456d0, type: 3}
+  textJSON: {fileID: 4900000, guid: ef6e9fc50a2a7654281cf3e6a085059f, type: 3}
   activeEvents: []
   currentEvent:
     ID: 0
@@ -4505,6 +4505,8 @@ MonoBehaviour:
     results3: 
     options: []
     unlocks: 
+  _eventIndex: 0
+  _treeIndex: 0
 --- !u!4 &600294673
 Transform:
   m_ObjectHideFlags: 0
@@ -14606,7 +14608,7 @@ MonoBehaviour:
   health: 100
   socials: 50
   events: 0
-  _eventTimeWindow: 30
+  _eventTimeWindow: 5
   _rollProbability: 40.67
   _gameDuration: 900
   depositCount: 0

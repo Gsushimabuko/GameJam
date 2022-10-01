@@ -101,14 +101,34 @@ public class GameManager : MonoBehaviour
     {
         //_eventTimeWindow = 10;
         //InvokeRepeating("rollEvent", 5, _timeWindow);
-        InvokeRepeating("GetFixedEvent", _eventTimeWindow, _eventTimeWindow);
+        //InvokeRepeating("GetFixedEvent", _eventTimeWindow, _eventTimeWindow);
         InvokeRepeating("GetOld", 0, 2);
+        StartCoroutine(GetFirstEvent());
     }
 
-    private void GetFixedEvent()
+    //private void GetFixedEvent()
+    //{
+    //    //Get event
+    //    rolledEvents++;
+    //    EventClass eventTriggered = DataManager.Instance.GetEvent();
+    //    //Debug.Log("Eventos rolleados en " + timeCont + " intentos: " + rolledEvents);
+
+    //    //Update currentEvents number stat
+    //    UIManager.Instance.UpdateActiveEventsNumber(DataManager.Instance.activeEvents.Count);
+    //    SoundManager.Instance.PlayNewEventSound();
+
+    //    UIManager.Instance.openEventWindow(false);
+    //}
+
+    IEnumerator GetFirstEvent()
+    {
+        yield return new WaitForSeconds(_eventTimeWindow);
+        StartCoroutine(GetFixedEvent());
+    }
+    IEnumerator GetFixedEvent()
     {
         //Get event
-        rolledEvents++;
+        //rolledEvents++;
         EventClass eventTriggered = DataManager.Instance.GetEvent();
         //Debug.Log("Eventos rolleados en " + timeCont + " intentos: " + rolledEvents);
 
@@ -117,6 +137,10 @@ public class GameManager : MonoBehaviour
         SoundManager.Instance.PlayNewEventSound();
 
         UIManager.Instance.openEventWindow(false);
+
+        yield return new WaitForSeconds(eventTriggered.waitTime);
+
+        StartCoroutine(GetFixedEvent());
     }
 
     public void GetOld()
