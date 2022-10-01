@@ -193,6 +193,8 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    
+
     public float getHapiness()
     {
        return gameManager.getHapiness();

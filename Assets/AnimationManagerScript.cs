@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class AnimationManagerScript : MonoBehaviour
 {
-
-
     public static AnimationManagerScript Instance;
+
+    public GameManager gameManager;
 
     [SerializeField]
     private Animator screenFilterAnimator;
@@ -14,6 +14,10 @@ public class AnimationManagerScript : MonoBehaviour
     public Animator moneyTextAnimator;
 
     public Animator CounterAnimator;
+
+    public Animator healthBarAnimator;
+
+    public Animator socialBarAnimator;
 
     // Start is called before the first frame update
     void Awake()
@@ -37,7 +41,19 @@ public class AnimationManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        checkHealthAnimation();
+    }
 
+    public void checkHealthAnimation()
+    {
+        if(gameManager.getHealth() < 100)
+        {
+            healthBarAnimator.SetInteger("play", 1);
+        }
+        else
+        {
+            healthBarAnimator.SetInteger("play", 0);
+        }
     }
 
     public void blinkRedCoroutine()
@@ -67,6 +83,32 @@ public class AnimationManagerScript : MonoBehaviour
     }
 
 
+    public void socialBarBlinkTrigger()
+    {
+        StartCoroutine(socialBarBlink());
+    }
+
+    public void healthBarBlinkTrigger()
+    {
+        StartCoroutine(healthBarBlink());
+    }
+
+
+    IEnumerator healthBarBlink()
+    {
+        healthBarAnimator.SetInteger("play", 1);
+        yield return new WaitForSeconds(1f);
+        healthBarAnimator.SetInteger("play", 0);
+
+    }
+
+    IEnumerator socialBarBlink()
+    {
+        socialBarAnimator.SetInteger("play", 1);
+        yield return new WaitForSeconds(1f);
+        socialBarAnimator.SetInteger("play", 0);
+
+    }
 
 
     IEnumerator moneyUp()

@@ -125,7 +125,8 @@ public class GameManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
+        
         //SOFT RESET
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -163,9 +164,22 @@ public class GameManager : MonoBehaviour
     {
         return hapiness;
     }
+    public float getHealth()
+    {
+        return health;
+    }
 
     public void changeStats(float money, float work, float health, float socials, float hapiness)
     {
+
+        //Triggering animations
+        if(socials != 0)
+        {
+            animationScript.socialBarBlinkTrigger();
+        }
+       
+
+
         //Affect stats
         this.money += money;
         this.work += work;
