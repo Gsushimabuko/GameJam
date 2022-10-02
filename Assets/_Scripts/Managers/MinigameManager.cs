@@ -26,7 +26,7 @@ public class MinigameManager : MonoBehaviour
     [SerializeField]
     private Button _closeButton;
 
-    private bool win = false;
+    //private bool win = false;
     private float prize = 0;
 
     private IEnumerator _triggerCoroutine = null;
@@ -234,7 +234,7 @@ public class MinigameManager : MonoBehaviour
             SoundManager.Instance.playMinigameWin();
             gameStarted = false;
             enableButtons(false);
-            win = true;
+            //win = true;
             GameManager.Instance.changeStats(prize, 0, 0, 0, 0);
             prize = 0;
         }
@@ -247,7 +247,7 @@ public class MinigameManager : MonoBehaviour
             SoundManager.Instance.playMiniGameLoss();
             gameStarted = false;
             enableButtons(false);
-            win = false;
+            //win = false;
         }
 
         EndGame();
@@ -298,7 +298,7 @@ public class MinigameManager : MonoBehaviour
             SoundManager.Instance.playMiniGameLoss();
             animationScript.setCounterState(4);
             Debug.Log("LOSE");
-            win = false;
+            //win = false;
             EndGame();
         }
     }
