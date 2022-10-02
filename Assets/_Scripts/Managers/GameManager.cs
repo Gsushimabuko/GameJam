@@ -280,7 +280,7 @@ public class GameManager : MonoBehaviour
     public void deposit(int depositType)
     {
    
-        UIManager.Instance.activateDepositIcon();
+        
         if(depositType == 1)
         {
             StartCoroutine(depositEnum(1));
@@ -304,6 +304,7 @@ public class GameManager : MonoBehaviour
         if(money >= 2000)
         {
             depositCount++;
+            Debug.Log("Entrando al if");
             UIManager.Instance.activateDepositIcon();
             this.money = this.money - depositAmount;
             yield return new WaitForSeconds(60);
