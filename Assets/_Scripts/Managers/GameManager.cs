@@ -51,19 +51,19 @@ public class GameManager : MonoBehaviour
     {
         if(hapiness <= 25)
         {
-            ending = 0;
+            ending = 3;
         }
         else if (hapiness <= 50)
         {
-            ending = 1;
+            ending = 2;
         }
         else if (hapiness <= 75)
         {
-            ending = 2;
+            ending = 1;
         }
         else if (hapiness > 75)
         {
-            ending = 3;
+            ending = 0;
         }
         Debug.Log(hapiness);
     }
