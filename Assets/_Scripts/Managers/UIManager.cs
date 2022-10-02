@@ -76,8 +76,7 @@ public class UIManager : MonoBehaviour
 
     [Header("BlurWindows")]
     public GameObject blurWindowBanking;
-
-    blurWindowEvent
+    public GameObject blurWindowEvent;
 
 
 
