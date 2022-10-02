@@ -49,23 +49,20 @@ public class EndScreenManager : MonoBehaviour
         {
             routeUI.text = "???: no llegaste a ninguna ruta";
         }
-        else if( eventScript._eventIndex  == 1)
-        {
-            routeUI.text = "???: no llegaste a ninguna ruta";
-        }
-        //resultados esperados
-        else if( eventScript._eventIndex  == 2)
+        else if(eventScript._treeIndex == 1)
         {
             routeUI.text = "Manyado: no eres el público objetivo de este juego, pero gracias por jugar";
         }
-        else if (eventScript._eventIndex == 3)
+        //resultados esperados
+        else if(eventScript._treeIndex == 2)
         {
             routeUI.text = "Persona normie: no desbordas personalidad";
         }
-        else if (eventScript._eventIndex == 4)
+        else if (eventScript._treeIndex == 3)
         {
             routeUI.text = "Weeb: báñate";
         }
+        
     }
     void Update()
     {
