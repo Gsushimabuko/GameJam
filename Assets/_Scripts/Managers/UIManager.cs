@@ -73,8 +73,14 @@ public class UIManager : MonoBehaviour
 
     public Slider sfxSlider;
     public Slider bgmSlider;
-  
-    
+
+    [Header("BlurWindows")]
+    public GameObject blurWindowBanking;
+
+    blurWindowEvent
+
+
+
 
     void Awake()
     {
@@ -527,6 +533,24 @@ public class UIManager : MonoBehaviour
         return option;
     }
 
+    public void openBlurBanking()
+    {
+        blurWindowBanking.SetActive(true);
+    }
+    public void closeBlurBanking()
+    {
+        blurWindowBanking.SetActive(false);
+    }
+
+    public void openBlurEvent()
+    {
+        blurWindowEvent.SetActive(true);
+    }
+    public void closeBlurEvent()
+    {
+        blurWindowEvent.SetActive(false);
+    }
+
     void PauseGame()
     {
         Time.timeScale = 0;
@@ -535,6 +559,8 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = 1;
     }
+
+    
 
 
 }
