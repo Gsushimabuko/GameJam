@@ -12,6 +12,9 @@ public class ScenesManager : MonoBehaviour
     public Slider loadingBar;
     public GameObject loaderCanvas;
     public TMPro.TextMeshProUGUI textProgress;
+    public AsyncOperation scene;
+
+    public bool flag = false;
 
     private float progress;
 
@@ -42,25 +45,37 @@ public class ScenesManager : MonoBehaviour
 
         do
         {
-            await Task.Delay(100);
+            await Task.Delay(500);
             progress = scene.progress;
         } while (scene.progress < 0.9f);
 
         progress = 1;
 
-        await Task.Delay(1000);
+        this.scene = scene;
+        flag = true;
+    }
 
-        scene.allowSceneActivation = true;
-        loaderCanvas.SetActive(false);
-        enabled = false;
+    public void StartGame()
+    {
+        if(flag)
+        {
+            scene.allowSceneActivation = true;
+            loaderCanvas.SetActive(false);
+            enabled = false;
+        }
     }
     void Start()
     {
+        flag = false;
         enabled = false;
     }
     void Update()
     {
         loadingBar.value = Mathf.MoveTowards(loadingBar.value, progress, 3 * Time.deltaTime);
         textProgress.text = Mathf.FloorToInt(Mathf.MoveTowards(loadingBar.value, progress, 3 * Time.deltaTime) * 100) + "%";
+        if (textProgress.text == "100%")
+        {
+            MenuManager.Instance.textPlay.gameObject.SetActive(true);
+        }
     }
 }
