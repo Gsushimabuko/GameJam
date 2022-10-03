@@ -85,6 +85,8 @@ public class UIManager : MonoBehaviour
     public Button resetButton;
     public Button menuButton;
 
+    public Image resetImage;
+
     void Awake()
     {
         if (Instance == null)
@@ -105,6 +107,8 @@ public class UIManager : MonoBehaviour
         timeLeft = 902;
         timerOn = true;
 
+        resetImage.gameObject.SetActive(false);
+
         foreach(GameObject screen in onBoardingScreens)
         {
             screen.SetActive(false);
@@ -112,12 +116,14 @@ public class UIManager : MonoBehaviour
 
         resetButton.onClick.AddListener(() =>
         {
-            GameManager.Instance.ResetGame();
+            //GameManager.Instance.ResetGame();
+            resetImage.gameObject.SetActive(true);
         });
 
         menuButton.onClick.AddListener(() =>
         {
-            GameManager.Instance.GoToStart();
+            //GameManager.Instance.GoToStart();
+            resetImage.gameObject.SetActive(true);
         });
 
         popUpNoMoney.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(() =>
@@ -416,6 +422,7 @@ public class UIManager : MonoBehaviour
         if (windowID == 0)
         {
             ResumeGame();
+            resetImage.gameObject.SetActive(false);
         }
     }
 
