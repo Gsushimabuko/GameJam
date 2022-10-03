@@ -82,6 +82,9 @@ public class UIManager : MonoBehaviour
     public Button skip;
     public GameObject onBoarding;
 
+    public Button resetButton;
+    public Button menuButton;
+
     void Awake()
     {
         if (Instance == null)
@@ -106,6 +109,16 @@ public class UIManager : MonoBehaviour
         {
             screen.SetActive(false);
         }
+
+        resetButton.onClick.AddListener(() =>
+        {
+            GameManager.Instance.ResetGame();
+        });
+
+        menuButton.onClick.AddListener(() =>
+        {
+            GameManager.Instance.GoToStart();
+        });
 
         popUpNoMoney.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(() =>
         {
@@ -175,6 +188,7 @@ public class UIManager : MonoBehaviour
             onBoarding.SetActive(false);
             SoundManager.Instance.onBoardingSource.Stop();
             Time.timeScale = 1;
+            skip.gameObject.SetActive(false);
         });
 
         onBoardingScreens[0].SetActive(true);
@@ -268,6 +282,7 @@ public class UIManager : MonoBehaviour
         {
             onBoardingScreens[17].SetActive(false);
             Time.timeScale = 1;
+            skip.gameObject.SetActive(false);
         });
     }
 

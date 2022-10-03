@@ -12,6 +12,7 @@ public class ScenesManager : MonoBehaviour
     public Slider loadingBar;
     public GameObject loaderCanvas;
     public TMPro.TextMeshProUGUI textProgress;
+    public string player;
     public AsyncOperation scene;
 
     public bool flag = false;
@@ -53,6 +54,12 @@ public class ScenesManager : MonoBehaviour
 
         this.scene = scene;
         flag = true;
+    }
+
+    public void GoToMenu()
+    {
+        var scene = SceneManager.LoadSceneAsync("MenuScene");
+        scene.allowSceneActivation = true;
     }
 
     public void StartGame()

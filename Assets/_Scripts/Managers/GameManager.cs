@@ -339,4 +339,14 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void ResetGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void GoToStart()
+    {
+        ScenesManager.Instance.GoToMenu();
+    }
+
 }

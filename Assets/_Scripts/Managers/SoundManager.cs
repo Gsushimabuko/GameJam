@@ -157,7 +157,7 @@ public class SoundManager : MonoBehaviour
 
     IEnumerator FadeIn()
     {
-        for (float i = 0.1f; i >= 0; i = i - 0.01f)
+        for (float i = 0.1f; i >= 0.01f; i = i - 0.01f)
         {
             bgmSource.volume = i;
             yield return new WaitForSeconds(0.1f);
@@ -171,7 +171,7 @@ public class SoundManager : MonoBehaviour
 
     IEnumerator FadeOut()
     {
-        for (float i = 0; i <= 0.1f; i = i + 0.01f)
+        for (float i = 0.01f; i <= 0.1f; i = i + 0.01f)
         {
             bgmSource.volume = i;
             yield return new WaitForSeconds(0.1f);

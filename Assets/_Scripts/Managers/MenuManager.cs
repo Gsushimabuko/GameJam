@@ -146,6 +146,7 @@ public class MenuManager : MonoBehaviour
     }
     IEnumerator FadeInLoadingC()
     {
+        ScenesManager.Instance.player = player;
         loadingScreen.GetComponent<CanvasGroup>().alpha = 0;
         hintText.text = hints[Random.Range(0, hints.Length)];
         do
