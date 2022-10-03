@@ -429,7 +429,7 @@ public class UIManager : MonoBehaviour
     public void openEventWindow(bool noClose)
     {
         //Set values in UI
-        if(DataManager.Instance.activeEvents.Count != 0)
+        if (DataManager.Instance.activeEvents.Count != 0)
         {
             Time.timeScale = 0;
             eventNavigationNumber = 0;
@@ -440,6 +440,7 @@ public class UIManager : MonoBehaviour
             _options[2].interactable = false;
             StartCoroutine("WaitOptions");
 
+            
             if (noClose)
             {
                 var button = _windows[4].transform.GetChild(0).GetComponent<Button>();
@@ -542,15 +543,17 @@ public class UIManager : MonoBehaviour
         {
             //Show result window
             UpdateResultWindow(option, index);
-            
+
             //Change stats
             GameManager.Instance.onOptionSelected(option);
             DataManager.Instance.RemoveEventFromActiveList(eventNavigationNumber);
             UpdateActiveEventsNumber(DataManager.Instance.activeEvents.Count);
+
+         
         }
     }
 
-    public void UpdateResultWindow(OptionClass option, int index)
+        public void UpdateResultWindow(OptionClass option, int index)
     {
         if(index==-1)
         {

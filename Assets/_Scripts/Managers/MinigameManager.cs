@@ -182,25 +182,25 @@ public class MinigameManager : MonoBehaviour
         {
             prize = 10000;
 
-            if (prob < 20)
-            {
-                GameManager.Instance.changeStats(0, 0, -20, 0, 0);
-            }
-            else if (prob < 50)
-            {
-                GameManager.Instance.changeStats(0, 0, -25, 0, 0);
-            }
-            else if (prob < 70)
+            if (prob < 25)
             {
                 GameManager.Instance.changeStats(0, 0, -30, 0, 0);
             }
-            else if (prob < 79)
+            else if (prob < 60)
             {
-                GameManager.Instance.health -= 35;
+                GameManager.Instance.changeStats(0, 0, -35, 0, 0);
             }
-            else if (prob < 80)
+            else if (prob < 85)
             {
                 GameManager.Instance.changeStats(0, 0, -40, 0, 0);
+            }
+            else if (prob < 94)
+            {
+                GameManager.Instance.changeStats(0, 0, -40, 0, 0);
+            }
+            else if (prob < 95)
+            {
+                GameManager.Instance.changeStats(0, 0, -50, 0, 0);
             }
         }
 
