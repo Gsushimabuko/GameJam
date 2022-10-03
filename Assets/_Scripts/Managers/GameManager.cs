@@ -104,6 +104,7 @@ public class GameManager : MonoBehaviour
         //InvokeRepeating("GetFixedEvent", _eventTimeWindow, _eventTimeWindow);
         InvokeRepeating("GetOld", 0, 2);
         StartCoroutine(GetFirstEvent());
+        Time.timeScale = 0;
     }
 
     //private void GetFixedEvent()

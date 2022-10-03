@@ -78,8 +78,9 @@ public class UIManager : MonoBehaviour
     public GameObject blurWindowBanking;
     public GameObject blurWindowEvent;
 
-
-
+    public GameObject[] onBoardingScreens;
+    public Button skip;
+    public GameObject onBoarding;
 
     void Awake()
     {
@@ -100,6 +101,11 @@ public class UIManager : MonoBehaviour
     {
         timeLeft = 902;
         timerOn = true;
+
+        foreach(GameObject screen in onBoardingScreens)
+        {
+            screen.SetActive(false);
+        }
 
         popUpNoMoney.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(() =>
         {
@@ -164,8 +170,94 @@ public class UIManager : MonoBehaviour
 
         UpdateSliders();
 
-        Time.timeScale = 1;
+        skip.onClick.AddListener(() =>
+        {
+            onBoarding.SetActive(false);
+            Time.timeScale = 1;
+        });
+
+        onBoardingScreens[0].SetActive(true);
+        onBoardingScreens[0].GetComponent<Button>().onClick.AddListener(() =>
+        {
+            ShowOnBoardingScreen(0);
+        });
+        onBoardingScreens[1].GetComponent<Button>().onClick.AddListener(() =>
+        {
+            ShowOnBoardingScreen(1);
+        });
+        onBoardingScreens[2].GetComponent<Button>().onClick.AddListener(() =>
+        {
+            ShowOnBoardingScreen(2);
+        });
+        onBoardingScreens[3].GetComponent<Button>().onClick.AddListener(() =>
+        {
+            ShowOnBoardingScreen(3);
+        });
+        onBoardingScreens[4].GetComponent<Button>().onClick.AddListener(() =>
+        {
+            ShowOnBoardingScreen(4);
+        });
+        onBoardingScreens[5].GetComponent<Button>().onClick.AddListener(() =>
+        {
+            ShowOnBoardingScreen(5);
+        });
+        onBoardingScreens[6].GetComponent<Button>().onClick.AddListener(() =>
+        {
+            ShowOnBoardingScreen(6);
+        });
+        onBoardingScreens[7].GetComponent<Button>().onClick.AddListener(() =>
+        {
+            ShowOnBoardingScreen(7);
+        });
+        onBoardingScreens[8].GetComponent<Button>().onClick.AddListener(() =>
+        {
+            ShowOnBoardingScreen(8);
+        });
+        onBoardingScreens[9].GetComponent<Button>().onClick.AddListener(() =>
+        {
+            ShowOnBoardingScreen(9);
+        });
+        onBoardingScreens[10].GetComponent<Button>().onClick.AddListener(() =>
+        {
+            ShowOnBoardingScreen(10);
+        });
+        onBoardingScreens[11].GetComponent<Button>().onClick.AddListener(() =>
+        {
+            ShowOnBoardingScreen(11);
+        });
+        onBoardingScreens[12].GetComponent<Button>().onClick.AddListener(() =>
+        {
+            ShowOnBoardingScreen(12);
+        });
+        onBoardingScreens[13].GetComponent<Button>().onClick.AddListener(() =>
+        {
+            ShowOnBoardingScreen(13);
+        });
+        onBoardingScreens[14].GetComponent<Button>().onClick.AddListener(() =>
+        {
+            ShowOnBoardingScreen(14);
+        });
+        onBoardingScreens[15].GetComponent<Button>().onClick.AddListener(() =>
+        {
+            ShowOnBoardingScreen(15);
+        });
+        onBoardingScreens[16].GetComponent<Button>().onClick.AddListener(() =>
+        {
+            ShowOnBoardingScreen(16);
+        });
+        onBoardingScreens[17].GetComponent<Button>().onClick.AddListener(() =>
+        {
+            onBoardingScreens[17].SetActive(false);
+            Time.timeScale = 1;
+        });
     }
+
+    public void ShowOnBoardingScreen(int index)
+    {
+        onBoardingScreens[index].SetActive(false);
+        onBoardingScreens[index + 1].SetActive(true);
+    }
+
     public void activateDepositIcon(){
         
         depositPendingIcon.SetActive(true);
