@@ -435,6 +435,10 @@ public class UIManager : MonoBehaviour
             eventNavigationNumber = 0;
             UpdateEventWindow(eventNavigationNumber);
             openWindow(4);
+            _options[0].interactable = false;
+            _options[1].interactable = false;
+            _options[2].interactable = false;
+            StartCoroutine("WaitOptions");
 
             if (noClose)
             {
@@ -443,6 +447,15 @@ public class UIManager : MonoBehaviour
                 PauseGame();
             }
         }
+    }
+
+    IEnumerator WaitOptions()
+    {
+        yield return new WaitForSecondsRealtime(1);
+
+        _options[0].interactable = true;
+        _options[1].interactable = true;
+        _options[2].interactable = true;
     }
 
     public void UpdateEventWindow(int index)
