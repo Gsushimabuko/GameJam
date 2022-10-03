@@ -44,6 +44,8 @@ public class EndScreenManager : MonoBehaviour
         workUI.text = gameManager.work.ToString();
         socialUI.text = gameManager.socials.ToString();
         moneyUI.text = gameManager.money.ToString();
+
+    
         //bug
         if (eventScript._treeIndex == 0)
         {

@@ -26250,15 +26250,15 @@ MonoBehaviour:
   animationScript: {fileID: 284504895}
   soundManager: {fileID: 308149558}
   UIManager: {fileID: 0}
-  hapiness: 18
-  money: 0
+  hapiness: 60
+  money: 200
   work: 0
   health: 100
   socials: 50
   events: 0
-  _eventTimeWindow: 25
+  _eventTimeWindow: 20
   _rollProbability: 40.67
-  _gameDuration: 5
+  _gameDuration: 900
   depositCount: 0
   ending: -1
 --- !u!4 &1926594755
