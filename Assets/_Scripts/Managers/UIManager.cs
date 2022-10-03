@@ -173,77 +173,96 @@ public class UIManager : MonoBehaviour
         skip.onClick.AddListener(() =>
         {
             onBoarding.SetActive(false);
+            SoundManager.Instance.onBoardingSource.Stop();
             Time.timeScale = 1;
         });
 
         onBoardingScreens[0].SetActive(true);
+        SoundManager.Instance.PlayDialog(0);
         onBoardingScreens[0].GetComponent<Button>().onClick.AddListener(() =>
         {
             ShowOnBoardingScreen(0);
+            SoundManager.Instance.PlayDialog(1);
         });
         onBoardingScreens[1].GetComponent<Button>().onClick.AddListener(() =>
         {
             ShowOnBoardingScreen(1);
+            SoundManager.Instance.PlayDialog(2);
         });
         onBoardingScreens[2].GetComponent<Button>().onClick.AddListener(() =>
         {
             ShowOnBoardingScreen(2);
+            SoundManager.Instance.PlayDialog(3);
         });
         onBoardingScreens[3].GetComponent<Button>().onClick.AddListener(() =>
         {
             ShowOnBoardingScreen(3);
+            SoundManager.Instance.PlayDialog(4);
         });
         onBoardingScreens[4].GetComponent<Button>().onClick.AddListener(() =>
         {
             ShowOnBoardingScreen(4);
+            SoundManager.Instance.PlayDialog(5);
         });
         onBoardingScreens[5].GetComponent<Button>().onClick.AddListener(() =>
         {
             ShowOnBoardingScreen(5);
+            SoundManager.Instance.PlayDialog(6);
         });
         onBoardingScreens[6].GetComponent<Button>().onClick.AddListener(() =>
         {
             ShowOnBoardingScreen(6);
+            SoundManager.Instance.PlayDialog(7);
         });
         onBoardingScreens[7].GetComponent<Button>().onClick.AddListener(() =>
         {
             ShowOnBoardingScreen(7);
+            SoundManager.Instance.PlayDialog(8);
         });
         onBoardingScreens[8].GetComponent<Button>().onClick.AddListener(() =>
         {
             ShowOnBoardingScreen(8);
+            SoundManager.Instance.PlayDialog(9);
         });
         onBoardingScreens[9].GetComponent<Button>().onClick.AddListener(() =>
         {
             ShowOnBoardingScreen(9);
+            SoundManager.Instance.PlayDialog(10);
         });
         onBoardingScreens[10].GetComponent<Button>().onClick.AddListener(() =>
         {
             ShowOnBoardingScreen(10);
+            SoundManager.Instance.PlayDialog(11);
         });
         onBoardingScreens[11].GetComponent<Button>().onClick.AddListener(() =>
         {
             ShowOnBoardingScreen(11);
+            SoundManager.Instance.PlayDialog(12);
         });
         onBoardingScreens[12].GetComponent<Button>().onClick.AddListener(() =>
         {
             ShowOnBoardingScreen(12);
+            SoundManager.Instance.PlayDialog(13);
         });
         onBoardingScreens[13].GetComponent<Button>().onClick.AddListener(() =>
         {
             ShowOnBoardingScreen(13);
+            SoundManager.Instance.PlayDialog(14);
         });
         onBoardingScreens[14].GetComponent<Button>().onClick.AddListener(() =>
         {
             ShowOnBoardingScreen(14);
+            SoundManager.Instance.PlayDialog(15);
         });
         onBoardingScreens[15].GetComponent<Button>().onClick.AddListener(() =>
         {
             ShowOnBoardingScreen(15);
+            SoundManager.Instance.PlayDialog(16);
         });
         onBoardingScreens[16].GetComponent<Button>().onClick.AddListener(() =>
         {
             ShowOnBoardingScreen(16);
+            SoundManager.Instance.PlayDialog(17);
         });
         onBoardingScreens[17].GetComponent<Button>().onClick.AddListener(() =>
         {

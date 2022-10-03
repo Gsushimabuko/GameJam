@@ -4177,6 +4177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmSource: {fileID: 0}
   sfxSource: {fileID: 0}
+  onBoardingSource: {fileID: 0}
   clickSound: {fileID: 8300000, guid: ece005fbb337dc041a83c0f4b07e52d0, type: 3}
   newEventSound: {fileID: 8300000, guid: 4ff6599f9a396f245b37a460f7878800, type: 3}
   _bgm: {fileID: 8300000, guid: 36848deea3cd2194f8b2e53a2b9b17dd, type: 3}
@@ -4191,6 +4192,25 @@ MonoBehaviour:
   moneyLoss: {fileID: 8300000, guid: c13345a6e1e1abb439b80e2c73308677, type: 3}
   moneyWin: {fileID: 8300000, guid: afaf8574f06d13c4088ad61c948d2d23, type: 3}
   gameManager: {fileID: 1926594754}
+  dialogs:
+  - {fileID: 8300000, guid: 44e14e2cd96ca6545a6b58009837e1f9, type: 3}
+  - {fileID: 8300000, guid: 2eb3d87d7bd397f45a61732a15511468, type: 3}
+  - {fileID: 8300000, guid: b158699021a3beb4689e7c6a61464ad0, type: 3}
+  - {fileID: 8300000, guid: 10704a157b7b09d4685fb63295add6e6, type: 3}
+  - {fileID: 8300000, guid: 9e70b1683db4b104eb503abbe79a8b1e, type: 3}
+  - {fileID: 8300000, guid: 3b2b370f39727814a8db6e7441d83115, type: 3}
+  - {fileID: 8300000, guid: 06fbfba697a08324b847f24ef9e7a5a9, type: 3}
+  - {fileID: 8300000, guid: 67715e8923cfd1b44a0cf033b5ce09c3, type: 3}
+  - {fileID: 8300000, guid: e40e573957b10d7439b02b695b8ecfcd, type: 3}
+  - {fileID: 8300000, guid: 1c59d7f86fbfc6142ae3b8a0f5717053, type: 3}
+  - {fileID: 8300000, guid: 0c12fd28bf71e1d4faf168530ecbc4ef, type: 3}
+  - {fileID: 8300000, guid: 46429b7c41b84774eb8fa089686c6930, type: 3}
+  - {fileID: 8300000, guid: 4c09ecf273abe954994d4e47d2a0be2f, type: 3}
+  - {fileID: 8300000, guid: 3149488f8949d0648a077910017d2f0a, type: 3}
+  - {fileID: 8300000, guid: 1f198cd8d6715804f93ae7773a752ff5, type: 3}
+  - {fileID: 8300000, guid: 987c9bc104cafbe4288a6df6f8e1b515, type: 3}
+  - {fileID: 8300000, guid: 75aa0b35d8a0b1c48bcd14aba64f70af, type: 3}
+  - {fileID: 8300000, guid: 5f9964b20a7a7ef41b7f9487368d2111, type: 3}
 --- !u!1 &309058911
 GameObject:
   m_ObjectHideFlags: 0

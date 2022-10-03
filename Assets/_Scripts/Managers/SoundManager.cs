@@ -8,6 +8,7 @@ public class SoundManager : MonoBehaviour
 
     public AudioSource bgmSource;
     public AudioSource sfxSource;
+    public AudioSource onBoardingSource;
 
     public AudioClip clickSound;
     public AudioClip newEventSound;
@@ -26,6 +27,8 @@ public class SoundManager : MonoBehaviour
     public AudioClip moneyWin;
 
     public GameManager gameManager;
+
+    public AudioClip[] dialogs;
     
 
         void Awake()
@@ -42,6 +45,7 @@ public class SoundManager : MonoBehaviour
 
         bgmSource = gameObject.AddComponent<AudioSource>();
         sfxSource = gameObject.AddComponent<AudioSource>();
+        onBoardingSource = gameObject.AddComponent<AudioSource>();
 
         bgmSource.loop = true;
         bgmSource.clip = _bgm;
@@ -51,6 +55,7 @@ public class SoundManager : MonoBehaviour
     {
         bgmSource.volume = 0.1f;
         sfxSource.volume = 0.2f;
+        onBoardingSource.volume = 0.5f;
         PlayBGM();
     }
     void Update()
@@ -62,6 +67,13 @@ public class SoundManager : MonoBehaviour
     private void PlayBGM()
     {
         bgmSource.Play();
+    }
+
+    public void PlayDialog(int index)
+    {
+        onBoardingSource.Stop();
+        onBoardingSource.clip = dialogs[index];
+        onBoardingSource.Play();
     }
 
     public void PlayMinigameSound(int index)
